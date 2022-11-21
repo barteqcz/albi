@@ -44,7 +44,7 @@ do
     systemctl enable --global pipewire
     systemctl enable --global pipewire-pulse
         "XFCE")
-    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools gvfs thunar thunar-volman
+    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools gvfs thunar thunar-volman pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
 
         *)
            echo "Nieprawidlowa opcja";;
