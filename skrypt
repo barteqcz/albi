@@ -1,7 +1,4 @@
 #!/bin/bash
-read -p "Podaj nazwe uzytkownika: " username
-read -p "Podaj haslo dla tego uzytkownika: " password
-read -p "Podaj hostname: " hostname
 pacstrap -K /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 Teraz nalezy uruchomic polecenie arch-chroot /mnt a nastepnie uruchomic drugi skrypt
