@@ -9,7 +9,7 @@ cp skrypt2 /mnt/skrypt2
 # generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 
-# change root
+# change root and running the script
 arch-chroot /mnt
 chmod +x skrypt2
 ./skrypt2
