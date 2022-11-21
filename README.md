@@ -1,1 +1,1 @@
-<br> Arch Linux Bash Installer <br/>
+<b> Arch Linux Bash Installer <b/>
