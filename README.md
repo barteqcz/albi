@@ -8,4 +8,4 @@ Z poziomu live-usb Archa:
 git clone https://github.com/barteqcz/archlinuxbashinstall
 cd archlinuxbashinstall/
 chmod +x skrypt
-./skrypt```
+./skrypt
