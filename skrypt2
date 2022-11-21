@@ -1,4 +1,4 @@
-pacman -S vim --noconfirm
+pacman -S vim reflector --noconfirm
 reflector --country Czechia --save /etc/pacman.d/mirrorlist
 ln -sf /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
 hwclock --systohc
@@ -6,6 +6,7 @@ sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
 echo "KEYMAP=pl" > /etc/vconsole.conf
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
+read -p "Podaj nazwe komputera: " hostname
 echo "$hostname" > /etc/hostname
 mkinitcpio -P
 pacman -S base-devel --noconfirm
