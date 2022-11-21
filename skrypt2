@@ -1,4 +1,4 @@
-pacman -S vim reflector --noconfirm
+pacman -S vim base-devel grub reflector --noconfirm
 reflector --country Czechia --save /etc/pacman.d/mirrorlist
 ln -sf /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
 hwclock --systohc
@@ -9,15 +9,29 @@ echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 read -p "Podaj nazwe komputera: " hostname
 echo "$hostname" > /etc/hostname
 mkinitcpio -P
-pacman -S base-devel --noconfirm
 read -p "Podaj nazwe uzytkownika: " username
 useradd -m $username
 passwd $username
 usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
-pacman -S grub
-grub-install --target=i386-pc /dev/sda
-grub-mkconfig -o /boot/grub/grub.cfg
+PS3="Na jakiej platformie instalowany jest system?: "
+
+select BIOS UEFI opt in
+do
+    case $opt in
+        "UEFI")
+    read -p "Prosze podac pelna sciezke instalacji GRUBa: " efi-directory
+    read -p "Prosze podac nazwe ktora bedzie reprezentowac system w UEFI: " bootloader-id
+    grub-install --target=x86_64-efi --efi-directory=$efi-directory bootloader-id=$bootloader-id
+    grub-mkconfig -o /boot/grub/grub.cfg
+        "BIOS")
+    read -p "Prosze podac pelna sciezke dysku na ktorym zainstalowany ma zostac GRUB: " grub-directory
+    grub-install --target=i386-pc $grub-directory
+    grub-mkconfig -o /boot/grub/grub.cfg
+        *)
+           echo "Nieprawidlowa opcja";;
+esac
+done
 pacman -S plasma dolphin konsole sddm networkmanager pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
 systemctl enable NetworkManager
 systemctl enable --global pipewire
