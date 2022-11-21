@@ -1,5 +1,13 @@
 #!/bin/bash
+
+# install
 pacstrap -K /mnt base linux linux-firmware
+
+# copy the second script
+cp skrypt2 /mnt/skrypt2
+
+# generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
-Teraz nalezy uruchomic polecenie arch-chroot /mnt a nastepnie uruchomic drugi skrypt
-break
+
+# change root
+arch-chroot /mnt ./skrypt2
