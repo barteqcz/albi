@@ -1,4 +1,5 @@
-pacman -S vim base-devel grub reflector --noconfirm
+pacman -S vim base-devel grub reflector networkmanager fuse git xdg-utils xdg-user-dirs --noconfirm
+systemctl enable NetworkManager
 reflector --country Czechia --save /etc/pacman.d/mirrorlist
 ln -sf /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
 hwclock --systohc
@@ -32,8 +33,20 @@ do
            echo "Nieprawidlowa opcja";;
 esac
 done
-pacman -S plasma dolphin konsole sddm networkmanager pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
-systemctl enable NetworkManager
-systemctl enable --global pipewire
-systemctl enable --global pipewire-pulse
-systemctl enable sddm
+PS3="Ktore srodowisko graficzne powinno zostac zainstalowane?: "
+
+select KDE\ Plasma XFCE MATE Cinnamon GNOME opt in
+do
+    case $opt in
+        "KDE\ Plasma")
+    pacman -S plasma sddm gwenview kate pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    systemctl enable sddm
+    systemctl enable --global pipewire
+    systemctl enable --global pipewire-pulse
+        "XFCE")
+    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools gvfs thunar thunar-volman
+
+        *)
+           echo "Nieprawidlowa opcja";;
+esac
+done
