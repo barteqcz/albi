@@ -7,5 +7,5 @@ From Arch's live image: / Z poziomu obrazu live Archa:
 ```pacman -Syy git
 git clone https://github.com/barteqcz/archlinuxbashinstall
 cd archlinuxbashinstall/
-chmod +x skrypt
-./skrypt
+chmod +x install
+bash install
