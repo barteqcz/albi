@@ -1,8 +1,8 @@
 #!/bin/bash
 
 pacstrap -K /mnt base linux linux-firmware
-cp skrypt2 /mnt/skrypt2
+cp skrypt2 /mnt/script
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
-chmod +x skrypt2
-./skrypt2
+chmod +x script
+./script
