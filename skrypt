@@ -1,13 +1,11 @@
 #!/bin/bash
-echo "Potrzebne informacje: "
-echo "---------------------"
 read -p "Podaj nazwe uzytkownika: " username
 read -p "Podaj haslo dla tego uzytkownika: " password
 read -p "Podaj hostname: " hostname
 pacstrap -K /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
-pacman -S vim reflector --noconfirm
+pacman -S vim --noconfirm
 reflector --country Czechia --save /etc/pacman.d/mirrorlist
 ln -sf /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
 hwclock --systohc
@@ -22,75 +20,5 @@ useradd -m $username
 passwd $username
 usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
-PS3='Na jakiej platformie instalowany jest system?: '
-opcje=("UEFI" "BIOS LEGACY")
-select opt in "${opcje[@]}"
-do
-case $opt in
-        "UEFI")
-            read -p "Podaj sciezke partycji EFI (np. /boot/efi): " uefigrub
-            pacman -S grub efibootmgr
-            break
-            ;;
-        "BIOS LEGACY")
-            read -p "Podaj sciezke dysku na ktorym zainstalowany zostanie GRUB (np. /dev/sda): " legacygrub
-            pacman -S grub
-            break
-            ;;
-
-        *) echo "Nieprawidlowa opcja"
-        ;;
-
-esac
-done
-if (("$REPLY"=1))
-then
-grub-install --target=x86_64-efi --efi-directory=$uefigrub --bootloader-id=archlinux
-grub-mkconfig -o /boot/grub/grub.cfg
-else
-grub-install --target=i386-pc $legacygrub
-grub-mkconfig -o /boot/grub/grub.cfg
-fi
-pacman -S networkmanager ntfs-3g os-prober git xdg-utils xdg-user-dirs --noconfirm
-systemctl enable NetworkManager
-PS3='Jakie sterowniki graficzne powinny zostac zainstalowane??: '
-opcje=("Intel" "Nvidia" "AMD" "Nouveau open-source")
-select opt in "${opcje[@]}"
-do
-case $opt in
-        "Intel")
-        pacman -S xorg-server mesa
-        "Nvidia")
-        pacman -S nvidia nvidia-utils nvidia-settings xorg
-        "Nouveau driver")
-        pacman -S mesa xf86-video-nouveau
-        "AMD")
-        pacman -S mesa xf86-video-amdgpu
-
-        *) echo "Nieprawidlowa opcja"
-        ;;
-
-esac
-done
-
-PS3='Jakie srodowisko ma zostac zainstalowane?: '
-opcje=("KDE Plasma" "Instalacja bez srodowiska graficznego")
-select opt in "${opcje[@]}"
-do
-case $opt in
-        "KDE Plasma")
-            pacman -S plasma dolphin konsole sddm noto-fonts-emoji noto-fonts-cjk pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber firefox cups hplip bash-completion gwenview
-            systemctl enable sddm
-            systemctl enable --global pipewire
-            systemctl enable --global pipewire-pulse
-            break
-            ;;
-        "Instalacja bez srodowiska graficznego")
-            break
-            ;;
-
-        *) echo "Nieprawidlowa opcja"
-        ;;
-
-esac
-done
+pacman -S grub
+grub-install --target=i386-pc /dev/sda
