@@ -19,7 +19,7 @@ echo "$hostname" > /etc/hostname
 mkinitcpio -P
 pacman -S base-devel --noconfirm
 useradd -m $username
-echo "$username":"$password" | chpasswd
+passwd $username
 usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
 PS3='Na jakiej platformie instalowany jest system?: '
