@@ -1,8 +1,6 @@
 <b> Arch Linux Bash Installer <b/>
 
-ALBI pomaga zautomatyzować proces instalacji Arch Linuxa.
-
-<b> Jak uruchomić? <b/>
+Jak uruchomić?
 
 Z poziomu live-usb Archa:
 
