@@ -4,27 +4,5 @@ read -p "Podaj haslo dla tego uzytkownika: " password
 read -p "Podaj hostname: " hostname
 pacstrap -K /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
-pacman -S vim --noconfirm
-reflector --country Czechia --save /etc/pacman.d/mirrorlist
-ln -sf /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
-hwclock --systohc
-sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
-locale-gen
-echo "KEYMAP=pl" > /etc/vconsole.conf
-echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
-echo "$hostname" > /etc/hostname
-mkinitcpio -P
-pacman -S base-devel --noconfirm
-useradd -m $username
-passwd $username
-usermod -aG wheel $username
-sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
-pacman -S grub
-grub-install --target=i386-pc /dev/sda
-grub-mkconfig -o /boot/grub/grub.cfg
-pacman -S plasma dolphin konsole sddm networkmanager pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
-systemctl enable NetworkManager
-systemctl enable --global pipewire
-systemctl enable --global pipewire-pulse
-systemctl enable sddm
+Teraz nalezy uruchomic polecenie arch-chroot /mnt a nastepnie uruchomic drugi skrypt
+break
