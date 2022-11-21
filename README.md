@@ -1,4 +1,4 @@
-<b> Arch Linux Bash Installer <b/>
+<b> ALBI - Arch Linux Bash Installer <b/>
 
 Jak uruchomić?
 
