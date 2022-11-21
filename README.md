@@ -1,8 +1,8 @@
 <b> ALBI - Arch Linux Bash Installer <b/>
 
 ```pacman -Syy git
-git clone https://github.com/barteqcz/archlinuxbashinstall
-cd archlinuxbashinstall/
+git clone https://github.com/barteqcz/albi
+cd albi/
 chmod +x install
 bash install
 ```
