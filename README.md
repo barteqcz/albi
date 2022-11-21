@@ -1,8 +1,8 @@
 <b> ALBI - Arch Linux Bash Installer <b/>
 
-Jak uruchomić?
+How to run? / Jak uruchomić?
 
-Z poziomu obrazu live Archa:
+From Arch's live image: / Z poziomu obrazu live Archa:
 
 ```pacman -Syy git
 git clone https://github.com/barteqcz/archlinuxbashinstall
