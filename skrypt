@@ -3,12 +3,13 @@
 # install
 pacstrap -K /mnt base linux linux-firmware
 
-# copy the second script and chmod it
+# copy the second script
 cp skrypt2 /mnt/skrypt2
-chmod +x skrypt2
 
 # generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # change root
-arch-chroot /mnt ./skrypt2
+arch-chroot /mnt
+chmod +x skrypt2
+./skrypt2
