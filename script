@@ -20,15 +20,16 @@ useradd -m $username
 passwd $username
 usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
-typ=(parted /dev/sda print | grep -i Partition\ Table)
-if ["$typ" == "msdos" ]
+typ=$(parted /dev/sda print | grep -i Partition\ Table)
+echo "$typ"
+if [[ "$typ" == "Partition Table: msdos" ]]
 then
 pacman -S grub --noconfirm
 read -p "Podaj sciezke dysku na ktorym powinien zostac zainstalowany GRUB: " grubdir
 grub-install --target=i386-pc "$grubdir"
 grub-mkconfig -o /boot/grub/grub.cfg
 break
-elif [ "$typ" == "gpt" ]
+elif [[ "$typ" == "Partition Table: gpt" ]]
 then
 pacman -S grub efibootmgr --noconfirm
 read -p "Podaj sciezke partycji EFI: " efidir
