@@ -35,8 +35,8 @@ do
     ;;
         "BIOS")
     pacman -S grub --noconfirm
-    read -p "Podaj sciezke dysku na ktorym zainstalowany ma zostac GRUB: " grub-directory
-    grub-install --target=i386-pc $grub-directory
+    read -p "Podaj sciezke dysku na ktorym zainstalowany ma zostac GRUB: " grubdir
+    grub-install --target=i386-pc "$grubdir"
     grub-mkconfig -o /boot/grub/grub.cfg
     ;;
         *)
