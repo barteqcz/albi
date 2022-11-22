@@ -30,6 +30,12 @@ do
     done
     mount "$mainpart" /mnt
     mount "$homepart" /mnt/home
+    while [[ $swappart != /dev/sd[a-z][1-9] ]]; do
+    read -p "Podaj partycje, ktora bedzie partycja swap (e.g. /dev/sda1): " swappart
+    [[ $swappart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
+    done
+    mkswap $swappart
+    swapon $swappart
     break
     ;;
         *)
