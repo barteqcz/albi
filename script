@@ -14,12 +14,12 @@ echo "KEYMAP=pl" > /etc/vconsole.conf
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 read -p "Podaj nazwe komputera: " hostname
 echo "$hostname" > /etc/hostname
-mkinitcpio -P
 read -p "Podaj nazwe uzytkownika: " username
 useradd -m $username
 passwd $username
 usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
+mkinitcpio -P
 PS3="UEFI/BIOS?: "
 options=("UEFI" "BIOS")
 select opt in "${options[@]}"
@@ -41,7 +41,7 @@ do
     pacman -S grub --noconfirm
     while [[ $grubdir != /dev/sd[a-z] ]]; do
     read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
-    [[ $grubdir == /dev/sd[a-z] ]] || echo "Invalid format"
+    [[ $grubdir == /dev/sd[a-z] ]] || echo "Niepoprawny format"
     done
     grub-install --target=i386-pc "$grubdir"
     grub-mkconfig -o /boot/grub/grub.cfg
@@ -74,6 +74,34 @@ do
     ;;
 esac
 done
+
+PS3="Ktory sterownik graficzny powinien zostac zainstalowany?: "
+options=("NVIDIA" "AMD" "Intel" "Nouveau (open-source sterownik dla NVIDIA)")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "NVIDIA")
+    pacman -S nvidia nvidia-utils nividia-settings xorg --noconfirm
+    break
+    ;;
+        "AMD")
+    pacman -S mesa xf86-amdgpu xorg --noconfirm
+    break
+    ;;
+        "Intel")
+    pacman -S mesa xf86-video-intel xorg --noconfirm
+    break
+    ;;
+        "Nouveau (open-source sterownik dla NVIDIA)")
+    pacman -S mesa xf86-video-nouveau xorg --noconfirm
+    break
+    ;;
+        *)
+    echo "Nieprawidlowa opcja"
+    ;;
+esac
+done
+
 PS3="Ktore srodowisko graficzne powinno zostac zainstalowane?: "
 options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME")
 select opt in "${options[@]}"
@@ -88,7 +116,14 @@ do
     pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools lightdm lightdm-gtk-greeter gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable lightdm
     break
-    ;;    
+    ;;
+        "MATE")
+    pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    systemctl enable lightdm
+    break
+    ;;
+        "Cinnamon")
+    pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm 
         *)
     echo "Nieprawidlowa opcja"
     ;;
