@@ -32,23 +32,44 @@ do
     grub-mkconfig -o /boot/grub/grub.cfg
     ;;
         *)
-           echo "Nieprawidlowa opcja";;
+    echo "Nieprawidlowa opcja"
+    ;;
 esac
 done
-PS3="Ktore srodowisko graficzne powinno zostac zainstalowane?: "
-options=(KDE\ Plasma XFCE MATE Cinnamon GNOME)
+PS3="Ktory serwer audio powinien zostac zainstalowany?: "
+options=("Pipewire" "Pulseaudio")
 select opt in "${options[@]}"
 do
     case $opt in
-        "KDE\ Plasma")
+        "Pipewire")
+    pacman -S pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol --noconfirm
+    systemctl enable --global pipewire
+    systemctl enable --global pipewire-pulse
+    ;;
+        "Pulseaudio")
+    pacman -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth pulseaudio-zeroconf pulseaudio-lirc pavucontrol --noconfirm
+    systemctl enable lightdm
+    ;;    
+        *)
+    echo "Nieprawidlowa opcja"
+    ;;
+esac
+done
+PS3="Ktore srodowisko graficzne powinno zostac zainstalowane?: "
+options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "KDE Plasma")
     pacman -S plasma sddm gwenview kate pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable sddm
     ;;
         "XFCE")
-    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools gvfs thunar thunar-volman pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools gvfs thunar thunar-volman noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable lightdm
     ;;    
         *)
-           echo "Nieprawidlowa opcja";;
+    echo "Nieprawidlowa opcja"
+    ;;
 esac
 done
