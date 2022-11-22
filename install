@@ -1,15 +1,25 @@
 #!/bin/bash
 
-while true; do
-    read -p "Czy przed uruchomieniem skryptu zamontowano niezbedne do instalacji partycje? [t/n] " tn
-    case $tn in
-        [Tt]* ) break;;
-        [Nn]* ) exit;;
-        * ) echo "Nieprawidlowa odpowiedz";;
-    esac
+PS3="Partycjonowanie dysku: "
+options=("calosc na partycji glownej /" "Osobna partycja dla /home")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Calosc na partycji glownej /")
+    read -p "Podaj partycje, ktora bedzie partycja glowna / (expected format: /dev/sda1): " mainpart
+    mount "$mainpart" /mnt
+        "Osobna partycja dla /home")
+    read -p "Podaj partycje, ktora bedzie partycja / (expected format: /dev/sda1): " mainpart
+    read -p "Podaj partycje, ktora bedzie partycja /home (expected format: /dev/sda1): " homepart
+    mount "$mainpart" /mnt
+    mount "$homepart" /mnt/home
+        *)
+    echo "Nieprawidlowa opcja"
+    ;;
+esac
 done
 pacstrap -K /mnt base linux linux-firmware
 cp script /mnt/script
 genfstab -U /mnt >> /mnt/etc/fstab
-echo "Teraz nalezy uruchomic dalsza czesc skryptu, uzywajac komendy "bash script""
+echo "Teraz nalezy uruchomic dalsza czesc skryptu, uzywajac komendy 'bash script'"
 arch-chroot /mnt
