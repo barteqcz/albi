@@ -11,6 +11,8 @@ do
     [[ $mainpart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
     done
     mount "$mainpart" /mnt
+    break
+    ;;
         "Osobna partycja dla /home")
     while [[ $mainpart != /dev/sd[a-z][1-9] ]]; do
     read -p "Podaj partycje, ktora bedzie partycja glowna / (e.g. /dev/sda1): " mainpart
