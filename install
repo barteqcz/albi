@@ -1,6 +1,15 @@
 #!/bin/bash
 
+while true; do
+    read -p "Czy przed uruchomieniem skryptu zamontowano niezbedne do instalacji partycje?" tn
+    case $tn in
+        [Tt]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Nieprawidlowa odpowiedz";;
+    esac
+done
 pacstrap -K /mnt base linux linux-firmware
 cp script /mnt/script
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt && chmod +x script && bash script
+echo "Teraz nalezy wpisac "bash script""
+arch-chroot /mnt
