@@ -28,13 +28,18 @@ read -p "Podaj sciezke dysku na ktorym powinien zostac zainstalowany GRUB: " gru
 grub-install --target=i386-pc "$grubdir"
 grub-mkconfig -o /boot/grub/grub.cfg
 break
-else
+elif [ "$typ" == "gpt" ]
+then
 pacman -S grub efibootmgr --noconfirm
 read -p "Podaj sciezke partycji EFI: " efidir
 mount --mkdir "$efidir" /boot/efi
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=archlinux
 grub-mkconfig -o /boot/grub/grub.cfg
 break
+else
+echo "Niepoprawne partycjonowanie, przerywam skrypt..."
+exit
+fi
 PS3="Ktory serwer audio powinien zostac zainstalowany?: "
 options=("Pipewire" "Pulseaudio")
 select opt in "${options[@]}"
