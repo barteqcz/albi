@@ -6,13 +6,24 @@ select opt in "${options[@]}"
 do
     case $opt in
         "Calosc na partycji glownej /")
-    read -p "Podaj partycje, ktora bedzie partycja glowna / (expected format: /dev/sda1): " mainpart
+    while [[ $mainpart != /dev/sd[a-z][1-9] ]]; do
+    read -p "Podaj partycje, ktora bedzie partycja glowna / (e.g. /dev/sda1): " mainpart
+    [[ $mainpart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
+    done
     mount "$mainpart" /mnt
         "Osobna partycja dla /home")
-    read -p "Podaj partycje, ktora bedzie partycja / (expected format: /dev/sda1): " mainpart
-    read -p "Podaj partycje, ktora bedzie partycja /home (expected format: /dev/sda1): " homepart
+    while [[ $mainpart != /dev/sd[a-z][1-9] ]]; do
+    read -p "Podaj partycje, ktora bedzie partycja glowna / (e.g. /dev/sda1): " mainpart
+    [[ $mainpart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
+    done
+    while [[ $homepart != /dev/sd[a-z][1-9] ]]; do
+    read -p "Podaj partycje, ktora bedzie partycja /home (e.g. /dev/sda1): " homepart
+    [[ $homepart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
+    done
     mount "$mainpart" /mnt
     mount "$homepart" /mnt/home
+    break
+    ;;
         *)
     echo "Nieprawidlowa opcja"
     ;;
