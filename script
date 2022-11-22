@@ -41,7 +41,7 @@ do
     pacman -S grub --noconfirm
     while [[ $grubdir != /dev/sd[a-z] ]]; do
     read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
-    [[ $grubdir == /dev/sd[a-z] ] || echo "Invalid format"
+    [[ $grubdir == /dev/sd[a-z] ]] || echo "Invalid format"
     done
     grub-install --target=i386-pc "$grubdir"
     grub-mkconfig -o /boot/grub/grub.cfg
