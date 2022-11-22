@@ -11,6 +11,10 @@ do
     [[ $mainpart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
     done
     mount "$mainpart" /mnt
+    while [[ $swappart != /dev/sd[a-z][1-9] ]]; do
+    read -p "Podaj partycje, ktora bedzie partycja swap (e.g. /dev/sda1): " swappart
+    [[ $swappart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
+    done
     break
     ;;
         "Osobna partycja dla /home")
