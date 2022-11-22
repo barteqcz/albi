@@ -3,6 +3,4 @@
 pacstrap -K /mnt base linux linux-firmware
 cp script /mnt/script
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
-chmod +x script
-./script
+arch-chroot /mnt && chmod +x script && bash script
