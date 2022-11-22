@@ -1,4 +1,14 @@
 #!/bin/bash
+    
+    while true
+    do
+    read -p "Przed rozpoczeciem pracy skryptu, upewnij sie ze posiadasz utworzone na dysku partycje niezbedne do instalacji systemu. Kontynuowac? [t/n] " tn
+    case $yn in
+        [Tt]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Nieprawidlowa opcja";;
+    esac
+    done
 
 PS3="Partycjonowanie dysku: "
 options=("Calosc na partycji glownej /" "Osobna partycja dla /home")
