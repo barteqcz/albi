@@ -32,5 +32,4 @@ done
 pacstrap -K /mnt base linux linux-firmware
 cp script /mnt/script
 genfstab -U /mnt >> /mnt/etc/fstab
-echo "Teraz nalezy uruchomic dalsza czesc skryptu, uzywajac komendy 'bash script'"
-arch-chroot /mnt
+arch-chroot /mnt bash script
