@@ -2,57 +2,13 @@
     
     while true
     do
-    read -p "Przed rozpoczeciem pracy skryptu, upewnij sie ze posiadasz utworzone na dysku partycje niezbedne do instalacji systemu. Kontynuowac? [t/n] " tn
+    read -p "Przed rozpoczeciem pracy skryptu, nalezy manualnie, dowolnie, lecz poprawnie popartycjonowac dysk. Kontynuowac? [t/n] " tn
     case $yn in
         [Tt]* ) break;;
-        [Nn]* ) exit;;
+        [Nn]* ) exit && cfdisk;;
         * ) echo "Nieprawidlowa opcja";;
     esac
     done
-
-PS3="Partycjonowanie dysku: "
-options=("Calosc na partycji glownej /" "Osobna partycja dla /home")
-select opt in "${options[@]}"
-do
-    case $opt in
-        "Calosc na partycji glownej /")
-    while [[ $mainpart != /dev/sd[a-z][1-9] ]]; do
-    read -p "Podaj partycje, ktora bedzie partycja glowna / (e.g. /dev/sda1): " mainpart
-    [[ $mainpart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
-    done
-    mount "$mainpart" /mnt
-    while [[ $swappart != /dev/sd[a-z][1-9] ]]; do
-    read -p "Podaj partycje, ktora bedzie partycja swap (e.g. /dev/sda1): " swappart
-    [[ $swappart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
-    done
-    mkswap $swappart
-    swapon $swappart
-    break
-    ;;
-        "Osobna partycja dla /home")
-    while [[ $mainpart != /dev/sd[a-z][1-9] ]]; do
-    read -p "Podaj partycje, ktora bedzie partycja glowna / (e.g. /dev/sda1): " mainpart
-    [[ $mainpart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
-    done
-    while [[ $homepart != /dev/sd[a-z][1-9] ]]; do
-    read -p "Podaj partycje, ktora bedzie partycja /home (e.g. /dev/sda1): " homepart
-    [[ $homepart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
-    done
-    mount "$mainpart" /mnt
-    mount "$homepart" /mnt/home
-    while [[ $swappart != /dev/sd[a-z][1-9] ]]; do
-    read -p "Podaj partycje, ktora bedzie partycja swap (e.g. /dev/sda1): " swappart
-    [[ $swappart == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
-    done
-    mkswap $swappart
-    swapon $swappart
-    break
-    ;;
-        *)
-    echo "Nieprawidlowa opcja"
-    ;;
-esac
-done
 pacstrap -K /mnt base linux linux-firmware
 cp script /mnt/script
 genfstab -U /mnt >> /mnt/etc/fstab
