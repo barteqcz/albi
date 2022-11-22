@@ -20,7 +20,6 @@ useradd -m $username
 passwd $username
 usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
-
 PS3="UEFI/BIOS?: "
 options=("UEFI" "BIOS")
 select opt in "${options[@]}"
