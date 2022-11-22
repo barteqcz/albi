@@ -3,7 +3,7 @@ rm -rf /etc/pacman.d/gnupg/
 pacman-key --init
 pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
-pacman -S vim base-devel grub reflector networkmanager fuse git xdg-utils xdg-user-dirs --noconfirm
+pacman -S vim base-devel grub reflector networkmanager git xdg-utils xdg-user-dirs --noconfirm
 systemctl enable NetworkManager
 reflector --country Czechia --save /etc/pacman.d/mirrorlist
 ln -sf /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
@@ -20,27 +20,34 @@ useradd -m $username
 passwd $username
 usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
-typ=$(parted /dev/sda print | grep -i Partition\ Table)
-echo "$typ"
-if [[ "$typ" == "Partition Table: msdos" ]]
-then
-pacman -S grub --noconfirm
-read -p "Podaj sciezke dysku na ktorym powinien zostac zainstalowany GRUB: " grubdir
-grub-install --target=i386-pc "$grubdir"
-grub-mkconfig -o /boot/grub/grub.cfg
-break
-elif [[ "$typ" == "Partition Table: gpt" ]]
-then
-pacman -S grub efibootmgr --noconfirm
-read -p "Podaj sciezke partycji EFI: " efidir
-mount --mkdir "$efidir" /boot/efi
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=archlinux
-grub-mkconfig -o /boot/grub/grub.cfg
-break
-else
-echo "Niepoprawne partycjonowanie, przerywam skrypt..."
-exit
-fi
+
+PS3="UEFI/BIOS?: "
+options=("UEFI" "BIOS")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "UEFI")
+    pacman -S grub efibootmgr --noconfirm
+    read -p "Podaj sciezke partycji EFI (eg. /dev/sda2): " efidir
+    mount --mkdir $efidir /boot/efi
+    genfstab -U
+    grub-install --target=x864_64-efi --efi-directory=/boot/efi --bootloader-id=archlinux
+    grub-mkconfig -o /boot/grub/grub.cfg
+    break
+    ;;
+        "BIOS")
+    pacman -S grub --noconfirm
+    read -p "Podaj sciezke dysku, na ktorym powinien zostac zainstalowany GRUB (eg. /dev/sda): " grubdir
+    grub-install --target=i386-pc $grubdir
+    grub-mkconfig -o /boot/grub/grub.cfg
+    break
+    ;;    
+        *)
+    echo "Nieprawidlowa opcja"
+    ;;
+esac
+done
+
 PS3="Ktory serwer audio powinien zostac zainstalowany?: "
 options=("Pipewire" "Pulseaudio")
 select opt in "${options[@]}"
@@ -68,7 +75,7 @@ select opt in "${options[@]}"
 do
     case $opt in
         "KDE Plasma")
-    pacman -S plasma sddm gwenview kate pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    pacman -S plasma sddm gwenview kate noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable sddm
     break
     ;;
