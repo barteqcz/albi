@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PS3="Partycjonowanie dysku: "
-options=("calosc na partycji glownej /" "Osobna partycja dla /home")
+options=("Calosc na partycji glownej /" "Osobna partycja dla /home")
 select opt in "${options[@]}"
 do
     case $opt in
