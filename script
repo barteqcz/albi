@@ -20,32 +20,21 @@ useradd -m $username
 passwd $username
 usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
-PS3="Na jakiej platformie instalowany jest system?: "
-options=("UEFI" "BIOS")
-select opt in "${options[@]}"
-do
-    case $opt in
-        "UEFI")
-    pacman -S grub efibootmgr --noconfirm
-    read -p "Podaj sciezke partycji EFI: " efi-mount
-    mount --mkdir $efi-mount /boot/efi
-    read -p "Podaj nazwe, ktora bedzie reprezentowac system w UEFI: " bootloader-id
-    grub-install --target=x86_64-efi --efi-directory=/boot/efi bootloader-id=$bootloader-id
-    grub-mkconfig -o /boot/grub/grub.cfg
-    break
-    ;;
-        "BIOS")
-    pacman -S grub --noconfirm
-    read -p "Podaj sciezke dysku na ktorym zainstalowany ma zostac GRUB: " grubdir
-    grub-install --target=i386-pc "$grubdir"
-    grub-mkconfig -o /boot/grub/grub.cfg
-    break
-    ;;
-        *)
-    echo "Nieprawidlowa opcja"
-    ;;
-esac
-done
+typ=(parted /dev/sda print | grep -i Partition\ Table)
+if ["$typ" == "msdos" ]
+then
+pacman -S grub --noconfirm
+read -p "Podaj sciezke dysku na ktorym powinien zostac zainstalowany GRUB: " grubdir
+grub-install --target=i386-pc "$grubdir"
+grub-mkconfig -o /boot/grub/grub.cfg
+break
+else
+pacman -S grub efibootmgr --noconfirm
+read -p "Podaj sciezke partycji EFI: " efidir
+mount --mkdir "$efidir" /boot/efi
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=archlinux
+grub-mkconfig -o /boot/grub/grub.cfg
+break
 PS3="Ktory serwer audio powinien zostac zainstalowany?: "
 options=("Pipewire" "Pulseaudio")
 select opt in "${options[@]}"
@@ -78,7 +67,7 @@ do
     break
     ;;
         "XFCE")
-    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools gvfs thunar thunar-volman noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools lightdm lightdm-gtk-greeter gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable lightdm
     break
     ;;    
