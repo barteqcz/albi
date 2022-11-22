@@ -27,9 +27,10 @@ do
     case $opt in
         "UEFI")
     pacman -S grub efibootmgr --noconfirm
-    read -p "Podaj pelna sciezke instalacji GRUBa: " efi-directory
+    read -p "Podaj sciezke partycji EFI: " efi-mount
+    mount --mkdir $efi-mount /boot/efi
     read -p "Podaj nazwe, ktora bedzie reprezentowac system w UEFI: " bootloader-id
-    grub-install --target=x86_64-efi --efi-directory=$efi-directory bootloader-id=$bootloader-id
+    grub-install --target=x86_64-efi --efi-directory=/boot/efi bootloader-id=$bootloader-id
     grub-mkconfig -o /boot/grub/grub.cfg
     ;;
         "BIOS")
