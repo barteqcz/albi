@@ -10,6 +10,11 @@ echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 read -p "Podaj nazwe komputera: " hostname
 echo "$hostname" > /etc/hostname
 mkinitcpio -P
+killall gpg-agent
+rm -rf /etc/pacman.d/gnupg/
+pacman-key --init
+pacman-key --populate
+pacman -Sy archlinux-keyring
 read -p "Podaj nazwe uzytkownika: " username
 useradd -m $username
 passwd $username
