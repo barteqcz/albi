@@ -55,10 +55,12 @@ do
     pacman -S pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol --noconfirm
     systemctl enable --global pipewire
     systemctl enable --global pipewire-pulse
+    break
     ;;
         "Pulseaudio")
     pacman -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth pulseaudio-zeroconf pulseaudio-lirc pavucontrol --noconfirm
     systemctl enable --global pulseaudio
+    break
     ;;    
         *)
     echo "Nieprawidlowa opcja"
