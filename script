@@ -54,7 +54,7 @@ esac
 done
 
 PS3="Ktory serwer audio powinien zostac zainstalowany?: "
-options=("Pipewire" "Pulseaudio")
+options=("Pipewire" "Pulseaudio" "Brak serwera audio")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -68,7 +68,10 @@ do
     pacman -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth pulseaudio-zeroconf pulseaudio-lirc pavucontrol --noconfirm
     systemctl enable --global pulseaudio
     break
-    ;;    
+    ;;
+        "Brak serwera audio")
+    break
+    ;;
         *)
     echo "Nieprawidlowa opcja"
     ;;
@@ -76,24 +79,27 @@ esac
 done
 
 PS3="Ktory sterownik graficzny powinien zostac zainstalowany?: "
-options=("NVIDIA" "AMD" "Intel" "Nouveau (open-source sterownik dla NVIDIA)")
+options=("NVIDIA" "AMD" "Intel" "Nouveau (open-source sterownik dla NVIDIA)" "Brak sterownika")
 select opt in "${options[@]}"
 do
     case $opt in
         "NVIDIA")
-    pacman -S nvidia nvidia-utils nividia-settings xorg --noconfirm
+    pacman -S nvidia nvidia-utils nividia-settings --noconfirm
     break
     ;;
         "AMD")
-    pacman -S mesa xf86-amdgpu xorg --noconfirm
+    pacman -S mesa xf86-amdgpu --noconfirm
     break
     ;;
         "Intel")
-    pacman -S mesa xf86-video-intel xorg --noconfirm
+    pacman -S mesa xf86-video-intel --noconfirm
     break
     ;;
         "Nouveau (open-source sterownik dla NVIDIA)")
-    pacman -S mesa xf86-video-nouveau xorg --noconfirm
+    pacman -S mesa xf86-video-nouveau --noconfirm
+    break
+    ;;
+        "Brak sterownika")
     break
     ;;
         *)
@@ -103,29 +109,43 @@ esac
 done
 
 PS3="Ktore srodowisko graficzne powinno zostac zainstalowane?: "
-options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME")
+options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME" "Brak DE")
 select opt in "${options[@]}"
 do
     case $opt in
         "KDE Plasma")
-    pacman -S plasma sddm gwenview kate noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    pacman -S plasma sddm gwenview kate noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
     systemctl enable sddm
     break
     ;;
         "XFCE")
-    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools lightdm lightdm-gtk-greeter gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-gtk-greeter xorg xorg-server gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
     systemctl enable lightdm
     break
     ;;
         "MATE")
-    pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
     systemctl enable lightdm
     break
     ;;
         "Cinnamon")
-    pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm 
+    pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
+    systemctl enable lightdm
+    break
+    ;;
+        "GNOME")
+    pacman -S gnome gdm noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
+    systemctl enable gdm
+    break
+    ;;
+        "Brak DE")
+    break
+    ;;
         *)
     echo "Nieprawidlowa opcja"
     ;;
 esac
 done
+read -p "Jesli chcesz zainstalowac jakies dodatkowe pakiety, podaj je tutaj, oddzielajac je spacja: " packages
+pacman -S "$packages" --noconfirm
+echo "System zostal zainstalowany.
