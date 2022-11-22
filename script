@@ -75,10 +75,12 @@ do
         "KDE Plasma")
     pacman -S plasma sddm gwenview kate pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable sddm
+    break
     ;;
         "XFCE")
     pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools gvfs thunar thunar-volman noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable lightdm
+    break
     ;;    
         *)
     echo "Nieprawidlowa opcja"
