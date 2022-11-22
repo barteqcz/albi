@@ -48,7 +48,7 @@ do
     ;;
         "Pulseaudio")
     pacman -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth pulseaudio-zeroconf pulseaudio-lirc pavucontrol --noconfirm
-    systemctl enable lightdm
+    systemctl enable --global pulseaudio
     ;;    
         *)
     echo "Nieprawidlowa opcja"
