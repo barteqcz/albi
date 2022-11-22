@@ -2,7 +2,7 @@ killall gpg-agent
 rm -rf /etc/pacman.d/gnupg/
 pacman-key --init
 pacman-key --populate
-pacman -Sy archlinux-keyring
+pacman -Sy archlinux-keyring --noconfirm
 pacman -S vim base-devel grub reflector networkmanager fuse git xdg-utils xdg-user-dirs --noconfirm
 systemctl enable NetworkManager
 reflector --country Czechia --save /etc/pacman.d/mirrorlist
