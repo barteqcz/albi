@@ -16,8 +16,8 @@ passwd $username
 usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
 PS3="Na jakiej platformie instalowany jest system?: "
-
-select BIOS UEFI opt in
+options=("UEFI" "BIOS")
+select opt in "${options[@]}"
 do
     case $opt in
         "UEFI")
@@ -25,27 +25,29 @@ do
     read -p "Prosze podac nazwe ktora bedzie reprezentowac system w UEFI: " bootloader-id
     grub-install --target=x86_64-efi --efi-directory=$efi-directory bootloader-id=$bootloader-id
     grub-mkconfig -o /boot/grub/grub.cfg
+    ;;
         "BIOS")
     read -p "Prosze podac pelna sciezke dysku na ktorym zainstalowany ma zostac GRUB: " grub-directory
     grub-install --target=i386-pc $grub-directory
     grub-mkconfig -o /boot/grub/grub.cfg
+    ;;
         *)
            echo "Nieprawidlowa opcja";;
 esac
 done
 PS3="Ktore srodowisko graficzne powinno zostac zainstalowane?: "
-
-select KDE\ Plasma XFCE MATE Cinnamon GNOME opt in
+options=(KDE\ Plasma XFCE MATE Cinnamon GNOME)
+select opt in "${options[@]}"
 do
     case $opt in
         "KDE\ Plasma")
     pacman -S plasma sddm gwenview kate pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable sddm
-    systemctl enable --global pipewire
-    systemctl enable --global pipewire-pulse
+    ;;
         "XFCE")
     pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools gvfs thunar thunar-volman pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
-
+    systemctl enable lightdm
+    ;;    
         *)
            echo "Nieprawidlowa opcja";;
 esac
