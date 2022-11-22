@@ -148,4 +148,12 @@ esac
 done
 read -p "Jesli chcesz zainstalowac jakies dodatkowe pakiety, podaj je tutaj, oddzielajac je spacja: " packages
 pacman -S "$packages" --noconfirm
-echo "System zostal zainstalowany.
+while true
+    do
+    read -p "System zostal zainstalowany. Uruchomic komputer ponownie? [t/n] " tn
+    case $yn in
+        [Tt]* ) umount -a && reboot;;
+        [Nn]* ) break;;
+        * ) echo "Nieprawidlowa opcja";;
+    esac
+    done
