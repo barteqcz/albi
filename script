@@ -13,12 +13,12 @@ locale-gen
 echo "KEYMAP=pl" > /etc/vconsole.conf
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 read -p "Podaj nazwe komputera: " hostname
-echo "$hostname" > /etc/hostname
 read -p "Podaj nazwe uzytkownika: " username
 useradd -m $username
 passwd $username
 usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
+echo "$hostname" > /etc/hostname
 mkinitcpio -P
 PS3="UEFI/BIOS?: "
 options=("UEFI" "BIOS")
@@ -28,8 +28,8 @@ do
         "UEFI")
     pacman -S grub efibootmgr --noconfirm
     while [[ $efidir != /dev/sd[a-z][1-9] ]]; do
-    read -p "Podaj sciezkie partycji EFI (e.g. /dev/sda1): " efidir
-    [[ $grubdir == /dev/sd[a-z][1-9] ]] || echo "Niepoprawny format"
+    read -p "Specify EFI partition location (e.g. /dev/sda1): " efidir
+    [[ $grubdir == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
     done
     mount --mkdir "$efidir" /boot/efi
     genfstab -U
@@ -41,20 +41,20 @@ do
     pacman -S grub --noconfirm
     while [[ $grubdir != /dev/sd[a-z] ]]; do
     read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
-    [[ $grubdir == /dev/sd[a-z] ]] || echo "Niepoprawny format"
+    [[ $grubdir == /dev/sd[a-z] ]] || echo "Invalid format"
     done
     grub-install --target=i386-pc "$grubdir"
     grub-mkconfig -o /boot/grub/grub.cfg
     break
     ;;    
         *)
-    echo "Nieprawidlowa opcja"
+    echo "Invalid option"
     ;;
 esac
 done
 
-PS3="Ktory serwer audio powinien zostac zainstalowany?: "
-options=("Pipewire" "Pulseaudio" "Brak serwera audio")
+PS3="Which audio server should be installed?: "
+options=("Pipewire" "Pulseaudio" "None")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -69,17 +69,17 @@ do
     systemctl enable --global pulseaudio
     break
     ;;
-        "Brak serwera audio")
+        "None")
     break
     ;;
         *)
-    echo "Nieprawidlowa opcja"
+    echo "Invalid format"
     ;;
 esac
 done
 
-PS3="Ktory sterownik graficzny powinien zostac zainstalowany?: "
-options=("NVIDIA" "AMD" "Intel" "Nouveau (open-source sterownik dla NVIDIA)" "Brak sterownika")
+PS3="Which graphics driver should be installed?: "
+options=("NVIDIA" "AMD" "Intel" "Nouveau (open-source NVIDIA driver)")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -95,21 +95,21 @@ do
     pacman -S mesa xf86-video-intel --noconfirm
     break
     ;;
-        "Nouveau (open-source sterownik dla NVIDIA)")
+        "Nouveau (open-source NVIDIA driver)")
     pacman -S mesa xf86-video-nouveau --noconfirm
     break
     ;;
-        "Brak sterownika")
+        "None")
     break
     ;;
         *)
-    echo "Nieprawidlowa opcja"
+    echo "Invalid option"
     ;;
 esac
 done
 
-PS3="Ktore srodowisko graficzne powinno zostac zainstalowane?: "
-options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME" "Brak DE")
+PS3="Which desktop environment should be installed?: "
+options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME" "None")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -138,22 +138,22 @@ do
     systemctl enable gdm
     break
     ;;
-        "Brak DE")
+        "None")
     break
     ;;
         *)
-    echo "Nieprawidlowa opcja"
+    echo "Invalid option"
     ;;
 esac
 done
-read -p "Jesli chcesz zainstalowac jakies dodatkowe pakiety, podaj je tutaj, oddzielajac je spacja: " packages
+read -p "Additional packages: " packages
 pacman -S "$packages" --noconfirm
 while true
     do
-    read -p "System zostal zainstalowany. Uruchomic komputer ponownie? [t/n] " tn
+    read -p "Arch was installed successfully. Do you want to reboot? [t/n] " tn
     case $yn in
         [Tt]* ) umount -a && reboot;;
         [Nn]* ) break;;
-        * ) echo "Nieprawidlowa opcja";;
+        * ) echo "Invalid ";;
     esac
     done
