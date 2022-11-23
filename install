@@ -2,7 +2,7 @@
     
     while true
     do
-    read -p "Before starting the script, it is necessary to manually, arbitrarily, but correctly partition the disk. Do you want to continue? [t/n] " tn
+    read -p "Before starting the script, it is necessary to manually, arbitrarily, but correctly partition the disk. Do you want to continue? [y/n] " yn
     case $yn in
         [Tt]* ) break;;
         [Nn]* ) exit && cfdisk;;
