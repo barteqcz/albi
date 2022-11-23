@@ -116,6 +116,7 @@ do
         "KDE Plasma")
     pacman -S plasma sddm gwenview kate noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
     systemctl enable sddm
+    sed 's/Current=/Current=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
     break
     ;;
         "XFCE")
