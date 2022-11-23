@@ -2,11 +2,11 @@
     
     while true
     do
-    read -p "Przed rozpoczeciem pracy skryptu, nalezy manualnie, dowolnie, lecz poprawnie popartycjonowac dysk. Kontynuowac? [t/n] " tn
+    read -p "Before starting the script, it is necessary to manually, arbitrarily, but correctly partition the disk. Do you want to continue? [t/n] " tn
     case $yn in
         [Tt]* ) break;;
         [Nn]* ) exit && cfdisk;;
-        * ) echo "Nieprawidlowa opcja";;
+        * ) echo "Invalid option";;
     esac
     done
 pacstrap -K /mnt base linux linux-firmware
