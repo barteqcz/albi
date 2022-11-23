@@ -150,10 +150,10 @@ read -p "Additional packages: " packages
 pacman -S "$packages" --noconfirm
 while true
     do
-    read -p "Arch was installed successfully. Do you want to reboot? [t/n] " tn
+    read -p "Arch was installed successfully. Do you want to reboot? [y/n] " yn
     case $yn in
-        [Tt]* ) umount -a && reboot;;
+        [Yy]* ) umount -a && reboot;;
         [Nn]* ) break;;
-        * ) echo "Invalid ";;
+        * ) echo "Invalid option";;
     esac
     done
