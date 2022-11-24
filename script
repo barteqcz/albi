@@ -10,7 +10,6 @@ ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
 hwclock --systohc
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
-echo "KEYMAP=en" > /etc/vconsole.conf
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 read -p "Podaj nazwe komputera: " hostname
 read -p "Podaj nazwe uzytkownika: " username
