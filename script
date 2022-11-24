@@ -26,7 +26,7 @@ select opt in "${options[@]}"
 do
     case $opt in
         "UEFI")
-    pacman -S grub efibootmgr
+    pacman -S grub efibootmgr efivar --noconfirm
     while [[ $efidir != /dev/sd[a-z][1-9] ]]; do
     read -p "Specify EFI partition location (e.g. /dev/sda1): " efidir
     [[ $efidir == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
@@ -34,9 +34,7 @@ do
     mount --mkdir "$efidir" /boot/efi
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=archlinux
     grub-mkconfig -o /boot/grub/grub.cfg
-    break 2
-    esac;
-    done
+    break
     ;;
         "BIOS")
     pacman -S grub --noconfirm
@@ -46,7 +44,7 @@ do
     done
     grub-install --target=i386-pc "$grubdir"
     grub-mkconfig -o /boot/grub/grub.cfg
-    break 2
+    break
     ;;
         *)
     echo "Invalid option"
