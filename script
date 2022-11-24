@@ -117,7 +117,7 @@ do
     pacman -S plasma sddm gwenview kate konsole spectacle ark noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
     systemctl enable sddm
     sed -i 's/Current=/Current=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
-    sed -i 's/CursorTheme=/CursorTheme=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
+    sed -i 's/CursorTheme=/CursorTheme=breeze-dark/g' /usr/lib/sddm/sddm.conf.d/default.conf
     break
     ;;
         "XFCE")
