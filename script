@@ -34,18 +34,18 @@ do
         "systemd-boot")
     pacman -S efivar
     bootctl install
-    break
+    break 2
     ;;
         "GRUB")
     pacman -S grub efibootmgr
-        while [[ $efidir != /dev/sd[a-z][1-9] ]]; do
+    while [[ $efidir != /dev/sd[a-z][1-9] ]]; do
     read -p "Specify EFI partition location (e.g. /dev/sda1): " efidir
     [[ $efidir == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
     done
     mount --mkdir "$efidir" /boot/efi
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=archlinux
     grub-mkconfig -o /boot/grub/grub.cfg
-    break
+    break 2
     esac;
     done
     ;;
@@ -57,7 +57,7 @@ do
     done
     grub-install --target=i386-pc "$grubdir"
     grub-mkconfig -o /boot/grub/grub.cfg
-    break
+    break 2
     ;;
         *)
     echo "Invalid option"
