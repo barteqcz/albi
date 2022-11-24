@@ -6,7 +6,7 @@ pacman -Sy archlinux-keyring --noconfirm
 pacman -S vim base-devel grub reflector networkmanager git xdg-utils xdg-user-dirs --noconfirm
 systemctl enable NetworkManager
 reflector --country Czechia --save /etc/pacman.d/mirrorlist
-ln -sf /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
+ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
 hwclock --systohc
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
