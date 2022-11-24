@@ -3,7 +3,7 @@ rm -rf /etc/pacman.d/gnupg/
 pacman-key --init
 pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
-pacman -S vim base-devel grub reflector networkmanager git xdg-utils xdg-user-dirs --noconfirm
+pacman -S vim base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --noconfirm
 systemctl enable NetworkManager
 reflector --country Czechia --save /etc/pacman.d/mirrorlist
 ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
@@ -11,8 +11,8 @@ hwclock --systohc
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
-read -p "Podaj nazwe komputera: " hostname
-read -p "Podaj nazwe uzytkownika: " username
+read -p "Specify hostname: " hostname
+read -p "Specify username: " username
 useradd -m $username
 passwd $username
 usermod -aG wheel $username
@@ -25,15 +25,50 @@ select opt in "${options[@]}"
 do
     case $opt in
         "UEFI")
-    pacman -S grub efibootmgr --noconfirm
-    while [[ $efidir != /dev/sd[a-z][1-9] ]]; do
+    PS3="UEFI/BIOS?: "
+options=("UEFI" "BIOS")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "UEFI")
+PS3="systemd-boot/GRUB?: "
+options=("systemd-boot" "GRUB")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "systemd-boot")
+    pacman -S efivar
+    bootctl install
+    break
+    ;;
+        "GRUB")
+    pacman -S grub efibootmgr
+        while [[ $efidir != /dev/sd[a-z][1-9] ]]; do
     read -p "Specify EFI partition location (e.g. /dev/sda1): " efidir
-    [[ $grubdir == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
+    [[ $efidir == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
     done
     mount --mkdir "$efidir" /boot/efi
-    genfstab -U
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=archlinux
     grub-mkconfig -o /boot/grub/grub.cfg
+    break
+    esac
+    done
+    ;;
+        "BIOS")
+    pacman -S grub --noconfirm
+    while [[ $grubdir != /dev/sd[a-z] ]]; do
+    read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
+    [[ $grubdir == /dev/sd[a-z] ]] || echo "Invalid format"
+    done
+    grub-install --target=i386-pc "$grubdir"
+    grub-mkconfig -o /boot/grub/grub.cfg
+    break
+    ;;
+        *)
+    echo "Invalid option"
+    ;;
+esac
+done
     break
     ;;
         "BIOS")
