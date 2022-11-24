@@ -19,13 +19,8 @@ usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
 echo "$hostname" > /etc/hostname
 mkinitcpio -P
+
 PS3="UEFI/BIOS?: "
-options=("UEFI" "BIOS")
-select opt in "${options[@]}"
-do
-    case $opt in
-        "UEFI")
-    PS3="UEFI/BIOS?: "
 options=("UEFI" "BIOS")
 select opt in "${options[@]}"
 do
@@ -51,7 +46,7 @@ do
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=archlinux
     grub-mkconfig -o /boot/grub/grub.cfg
     break
-    esac
+    esac;
     done
     ;;
         "BIOS")
@@ -64,23 +59,6 @@ do
     grub-mkconfig -o /boot/grub/grub.cfg
     break
     ;;
-        *)
-    echo "Invalid option"
-    ;;
-esac
-done
-    break
-    ;;
-        "BIOS")
-    pacman -S grub --noconfirm
-    while [[ $grubdir != /dev/sd[a-z] ]]; do
-    read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
-    [[ $grubdir == /dev/sd[a-z] ]] || echo "Invalid format"
-    done
-    grub-install --target=i386-pc "$grubdir"
-    grub-mkconfig -o /boot/grub/grub.cfg
-    break
-    ;;    
         *)
     echo "Invalid option"
     ;;
