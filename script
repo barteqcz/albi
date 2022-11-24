@@ -154,7 +154,7 @@ while true
     do
     read -p "Arch was installed successfully. Do you want to reboot? [y/n] " yn
     case $yn in
-        [Yy]* ) umount -a && reboot;;
+        [Yy]* ) reboot;;
         [Nn]* ) break;;
         * ) echo "Invalid option";;
     esac
