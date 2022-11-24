@@ -26,16 +26,6 @@ select opt in "${options[@]}"
 do
     case $opt in
         "UEFI")
-PS3="systemd-boot/GRUB?: "
-options=("systemd-boot" "GRUB")
-select opt in "${options[@]}"
-do
-    case $opt in
-        "systemd-boot")
-    bootctl install
-    break 2
-    ;;
-        "GRUB")
     pacman -S grub efibootmgr
     while [[ $efidir != /dev/sd[a-z][1-9] ]]; do
     read -p "Specify EFI partition location (e.g. /dev/sda1): " efidir
@@ -159,13 +149,14 @@ do
     ;;
 esac
 done
+
 read -p "Additional packages: " packages
 pacman -S "$packages" --noconfirm
 while true
     do
     read -p "Arch was installed successfully. Do you want to reboot? [y/n] " yn
     case $yn in
-        [Yy]* ) reboot;;
+        [Yy]* ) exit && reboot;;
         [Nn]* ) break;;
         * ) echo "Invalid option";;
     esac
