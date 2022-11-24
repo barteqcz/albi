@@ -3,7 +3,7 @@ rm -rf /etc/pacman.d/gnupg/
 pacman-key --init
 pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
-pacman -S vim base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --noconfirm
+pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --noconfirm
 systemctl enable NetworkManager
 reflector --country Czechia --save /etc/pacman.d/mirrorlist
 ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
@@ -32,7 +32,6 @@ select opt in "${options[@]}"
 do
     case $opt in
         "systemd-boot")
-    pacman -S efivar
     bootctl install
     break 2
     ;;
