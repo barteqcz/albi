@@ -85,19 +85,19 @@ select opt in "${options[@]}"
 do
     case $opt in
         "NVIDIA")
-    pacman -S nvidia nvidia-utils nvidia-settings --noconfirm
+    pacman -S xorg xorg-server nvidia nvidia-utils nvidia-settings --noconfirm
     break
     ;;
         "AMD")
-    pacman -S mesa xf86-amdgpu --noconfirm
+    pacman -S xorg xorg-server mesa xf86-amdgpu --noconfirm
     break
     ;;
         "Intel")
-    pacman -S mesa xf86-video-intel --noconfirm
+    pacman -S xorg xorg-server mesa xf86-video-intel --noconfirm
     break
     ;;
         "Nouveau (open-source NVIDIA driver)")
-    pacman -S mesa xf86-video-nouveau --noconfirm
+    pacman -S xorg xorg-server mesa xf86-video-nouveau --noconfirm
     break
     ;;
         "None")
@@ -115,29 +115,29 @@ select opt in "${options[@]}"
 do
     case $opt in
         "KDE Plasma")
-    pacman -S plasma sddm gwenview kate konsole spectacle ark noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
+    pacman -S plasma sddm gwenview kate konsole spectacle ark noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable sddm
     sed -i 's/Current=/Current=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
     sed -i 's/CursorTheme=/CursorTheme=breeze-dark/g' /usr/lib/sddm/sddm.conf.d/default.conf
     break
     ;;
         "XFCE")
-    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-gtk-greeter xorg xorg-server gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
+    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-gtk-greeter gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
     systemctl enable lightdm
     break
     ;;
         "MATE")
-    pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
+    pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable lightdm
     break
     ;;
         "Cinnamon")
-    pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
+    pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable lightdm
     break
     ;;
         "GNOME")
-    pacman -S gnome gdm noto-fonts noto-fonts-emoji noto-fonts-cjk xorg xorg-server --noconfirm
+    pacman -S gnome gdm noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable gdm
     break
     ;;
@@ -150,8 +150,6 @@ do
 esac
 done
 
-read -p "Additional packages: " packages
-pacman -S "$packages" --noconfirm
 while true
     do
     read -p "Arch was installed successfully. Do you want to reboot? [y/n] " yn
