@@ -84,7 +84,7 @@ select opt in "${options[@]}"
 do
     case $opt in
         "NVIDIA")
-    pacman -S nvidia nvidia-utils nividia-settings --noconfirm
+    pacman -S nvidia nvidia-utils nvidia-settings --noconfirm
     break
     ;;
         "AMD")
