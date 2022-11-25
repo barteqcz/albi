@@ -5,7 +5,7 @@ pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
 pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --noconfirm
 systemctl enable NetworkManager
-reflector --country Czechia --save /etc/pacman.d/mirrorlist
+reflector --country Germany --save /etc/pacman.d/mirrorlist
 ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
 hwclock --systohc
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
@@ -27,7 +27,7 @@ do
     case $opt in
         "UEFI")
     pacman -S grub efibootmgr efivar --noconfirm
-    read -p "Specify EFI partition location (e.g. /boot/efi, /efi, /boot): " efidir
+    read -p "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux
     grub-mkconfig -o /boot/grub/grub.cfg
     break
@@ -112,7 +112,7 @@ do
     pacman -S plasma sddm gwenview kate konsole dolphin spectacle ark noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
     systemctl enable sddm
     sed -i 's/Current=/Current=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
-    sed -i 's/CursorTheme=/CursorTheme=breeze-dark/g' /usr/lib/sddm/sddm.conf.d/default.conf
+    sed -i 's/CursorTheme=/CursorTheme=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
     break
     ;;
         "XFCE")
@@ -148,7 +148,7 @@ while true
     do
     read -p "Arch was installed successfully. Do you want to reboot? [y/n] " yn
     case $yn in
-        [Yy]* ) exit && reboot;;
+        [Yy]* ) reboot --force;;
         [Nn]* ) break;;
         * ) echo "Invalid option";;
     esac
