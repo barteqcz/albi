@@ -5,7 +5,8 @@ pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
 pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --noconfirm
 systemctl enable NetworkManager
-reflector --country Germany --save /etc/pacman.d/mirrorlist
+read -p "specify the name (MUST BE ENGLISH VERSION OF THE NAME) of the country, from where repositories you would like to use: " countryreflector
+reflector --country "$countryreflector" --save /etc/pacman.d/mirrorlist
 ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
 hwclock --systohc
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
