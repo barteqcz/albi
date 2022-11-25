@@ -5,7 +5,7 @@
     read -p "Before starting the script, it is necessary to manually, arbitrarily, but correctly partition the disk, and connect to the internet (when it comes to wifi connection). Do you want to continue? [y/n] " yn
     case $yn in
         [Yy]* ) break;;
-        [Nn]* ) cfdisk;;
+        [Nn]* ) exit;;
         * ) echo "Invalid option";;
     esac
     done
