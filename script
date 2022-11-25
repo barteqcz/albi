@@ -27,10 +27,7 @@ do
     case $opt in
         "UEFI")
     pacman -S grub efibootmgr efivar --noconfirm
-    while [[ $efidir != /dev/sd[a-z][1-9] ]]; do
     read -p "Specify EFI partition location (e.g. /boot/efi, /efi, /boot): " efidir
-    [[ $efidir == /dev/sd[a-z][1-9] ]] || echo "Invalid format"
-    done
     grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux
     grub-mkconfig -o /boot/grub/grub.cfg
     break
