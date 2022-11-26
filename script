@@ -3,7 +3,7 @@ rm -rf /etc/pacman.d/gnupg/
 pacman-key --init
 pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
-pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --noconfirm --needed
+pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion ntfs-3g --noconfirm --needed
 systemctl enable NetworkManager
 read -rp "Specify country name: " srvloc
 while ! reflector --country "$srvloc" --save /etc/pacman.d/mirrorlist; do
