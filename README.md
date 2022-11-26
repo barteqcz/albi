@@ -1,6 +1,6 @@
-### ALBI - Arch Linux Bash Installer
+# ALBI - Arch Linux Bash Installer
 
-# Installing
+### Installing
 
 ```
 pacman -Syy git
@@ -9,7 +9,7 @@ cd albi/
 bash install
 ```
 
-# Troubleshooting
+### Troubleshooting
 
 In case, you can't install `git` package because of some keyring-related errors, do the following:
 
