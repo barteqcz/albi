@@ -1,4 +1,4 @@
-<b> ALBI - Arch Linux Bash Installer </b>
+### ALBI - Arch Linux Bash Installer
 
 ```
 pacman -Syy git
