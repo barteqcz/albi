@@ -1,5 +1,0 @@
-#!/bin/bash
-rm script
-pacman -Scc --noconfirm
-exit
-reboot
