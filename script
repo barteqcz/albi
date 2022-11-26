@@ -5,19 +5,19 @@ pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
 pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --noconfirm --needed
 systemctl enable NetworkManager
-read -p "Specify country name: " srvloc
+read -rp "Specify country name: " srvloc
 while ! reflector --country "$srvloc" --save /etc/pacman.d/mirrorlist; do
-read -p "Specify country name: " srvloc
+read -rp "Specify country name: " srvloc
 done
 ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
 hwclock --systohc
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
-read -p "Specify hostname: " hostname
-read -p "Specify username: " username
+read -rp "Specify hostname: " hostname
+read -rp "Specify username: " username
 while ! useradd -m "$username"; do
-read -p "Specify username: " username
+read -rp "Specify username: " username
 done
 passwd $username
 usermod -aG wheel $username
@@ -32,18 +32,18 @@ do
     case $opt in
         "UEFI")
     pacman -S grub efibootmgr efivar --noconfirm --needed
-    read -p "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
+    read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     while ! grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux; do
-    read -p "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
+    read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     done
     grub-mkconfig -o /boot/grub/grub.cfg
     break
     ;;
         "BIOS")
     pacman -S grub --noconfirm --needed
-    read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
+    read -rp "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
     while ! grub-install --target=i386-pc $grubdir; do
-    read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
+    read -rp "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
     done
     grub-mkconfig -o /boot/grub/grub.cfg
     break
@@ -150,10 +150,9 @@ do
 esac
 done
 
-rm script
 while true
     do
-    read -p "Arch was installed successfully. Do you want to execute postinstall script and reboot? [y/n] " yn
+    read -rp "Arch was installed successfully. Do you want to execute postinstall script and reboot? [y/n] " yn
     case $yn in
         [Yy]* ) bash postinstall;;
         [Nn]* ) break;;
