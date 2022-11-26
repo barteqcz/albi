@@ -3,7 +3,7 @@ rm -rf /etc/pacman.d/gnupg/
 pacman-key --init
 pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
-pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --needed--noconfirm
+pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --noconfirm --needed
 systemctl enable NetworkManager
 read -p "Specify country name: " srvloc
 while ! reflector --country "$srvloc" --save /etc/pacman.d/mirrorlist; do
@@ -31,7 +31,7 @@ select opt in "${options[@]}"
 do
     case $opt in
         "UEFI")
-    pacman -S grub efibootmgr efivar --noconfirm
+    pacman -S grub efibootmgr efivar --noconfirm --needed
     read -p "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     while ! grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux
     read -p "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
@@ -40,7 +40,7 @@ do
     break
     ;;
         "BIOS")
-    pacman -S grub --noconfirm
+    pacman -S grub --noconfirm --needed
     read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
     while ! grub-install --target=i386-pc "$grubdir"
     read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
@@ -60,13 +60,13 @@ select opt in "${options[@]}"
 do
     case $opt in
         "Pipewire")
-    pacman -S pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol --noconfirm
+    pacman -S pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol --noconfirm --needed
     systemctl enable --global pipewire
     systemctl enable --global pipewire-pulse
     break
     ;;
         "Pulseaudio")
-    pacman -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth pulseaudio-zeroconf pulseaudio-lirc pavucontrol --noconfirm
+    pacman -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth pulseaudio-zeroconf pulseaudio-lirc pavucontrol --noconfirm --needed
     systemctl enable --global pulseaudio
     break
     ;;
@@ -85,19 +85,19 @@ select opt in "${options[@]}"
 do
     case $opt in
         "NVIDIA")
-    pacman -S xorg xorg-server nvidia nvidia-utils nvidia-settings --noconfirm
+    pacman -S xorg xorg-server nvidia nvidia-utils nvidia-settings --noconfirm --needed
     break
     ;;
         "AMD")
-    pacman -S xorg xorg-server mesa xf86-amdgpu --noconfirm
+    pacman -S xorg xorg-server mesa xf86-amdgpu --noconfirm --needed
     break
     ;;
         "Intel")
-    pacman -S xorg xorg-server mesa xf86-video-intel --noconfirm
+    pacman -S xorg xorg-server mesa xf86-video-intel --noconfirm --needed
     break
     ;;
         "Nouveau (open-source NVIDIA driver)")
-    pacman -S xorg xorg-server mesa xf86-video-nouveau --noconfirm
+    pacman -S xorg xorg-server mesa xf86-video-nouveau --noconfirm --needed
     break
     ;;
         "None")
@@ -115,29 +115,29 @@ select opt in "${options[@]}"
 do
     case $opt in
         "KDE Plasma")
-    pacman -S plasma sddm gwenview kate konsole dolphin spectacle ark noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    pacman -S plasma sddm gwenview kate konsole dolphin spectacle ark noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm --needed
     systemctl enable sddm
     sed -i 's/Current=/Current=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
     sed -i 's/CursorTheme=/CursorTheme=breeze_cursors/g' /usr/lib/sddm/sddm.conf.d/default.conf
     break
     ;;
         "XFCE")
-    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-gtk-greeter gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-gtk-greeter gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm --needed
     systemctl enable lightdm
     break
     ;;
         "MATE")
-    pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm --needed
     systemctl enable lightdm
     break
     ;;
         "Cinnamon")
-    pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm --needed
     systemctl enable lightdm
     break
     ;;
         "GNOME")
-    pacman -S gnome gdm noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm
+    pacman -S gnome gdm noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm --needed
     systemctl enable gdm
     break
     ;;
