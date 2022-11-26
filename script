@@ -156,7 +156,7 @@ done
 
 while true
     do
-    read -rp "Arch was installed successfully. Do you want to execute postinstall script and reboot? [y/n] " yn
+    read -rp "Arch was installed successfully. Do you want to run clean-up? [y/n] " yn
     case $yn in
         [Yy]* ) rm script && pacman -Scc --noconfirm;;
         [Nn]* ) break;;
