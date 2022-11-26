@@ -5,16 +5,20 @@ pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
 pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --noconfirm
 systemctl enable NetworkManager
-read -p "specify the name (MUST BE ENGLISH VERSION OF THE NAME) of the country, from where repositories you would like to use: " countryreflector
-reflector --country "$countryreflector" --save /etc/pacman.d/mirrorlist
+read -p "Specify country name: " srvloc
+while ! reflector --country "$srvloc" --save /etc/pacman.d/mirrorlist; do
+read -p "Specify country name: " srvloc
+done
 ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
 hwclock --systohc
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 read -p "Specify hostname: " hostname
+while [[ $username != [a-z][0-9] ]]; do
 read -p "Specify username: " username
-useradd -m $username
+[[ $username == [a-z][0-9] ]] || echo "Invalid format. Tip: you can use only small letters."
+done
 passwd $username
 usermod -aG wheel $username
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
@@ -150,7 +154,7 @@ while true
     do
     read -p "Arch was installed successfully. Do you want to reboot? [y/n] " yn
     case $yn in
-        [Yy]* ) reboot --force;;
+        [Yy]* ) bash reboot;;
         [Nn]* ) break;;
         * ) echo "Invalid option";;
     esac
