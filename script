@@ -15,9 +15,9 @@ sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 read -p "Specify hostname: " hostname
-while [[ $username != [a-z][0-9] ]]; do
+while [[ $username != [a-z][0-9]* ]]; do
 read -p "Specify username: " username
-[[ $username == [a-z][0-9] ]] || echo "Invalid format. Tip: you can use only small letters."
+[[ $username == *[A-Z][a-z][0-9]* ]] || echo "Invalid format"
 done
 passwd $username
 usermod -aG wheel $username
@@ -33,17 +33,18 @@ do
         "UEFI")
     pacman -S grub efibootmgr efivar --noconfirm
     read -p "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
-    grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux
+    while ! grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux
+    read -p "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
+    done
     grub-mkconfig -o /boot/grub/grub.cfg
     break
     ;;
         "BIOS")
     pacman -S grub --noconfirm
-    while [[ $grubdir != /dev/sd[a-z] ]]; do
     read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
-    [[ $grubdir == /dev/sd[a-z] ]] || echo "Invalid format"
+    while ! grub-install --target=i386-pc "$grubdir"
+    read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
     done
-    grub-install --target=i386-pc "$grubdir"
     grub-mkconfig -o /boot/grub/grub.cfg
     break
     ;;
