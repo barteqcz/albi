@@ -152,9 +152,9 @@ done
 rm script
 while true
     do
-    read -p "Arch was installed successfully. Do you want to reboot? [y/n] " yn
+    read -p "Arch was installed successfully. Do you want to execute postinstall script and reboot? [y/n] " yn
     case $yn in
-        [Yy]* ) bash reboot;;
+        [Yy]* ) bash postinstall;;
         [Nn]* ) break;;
         * ) echo "Invalid option";;
     esac
