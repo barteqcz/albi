@@ -34,11 +34,11 @@ do
     pacman -S grub efibootmgr efivar --noconfirm --needed
     read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     read -rp "Specify EFI partition path (e.g. /dev/sda1): " efipart
-    mount --mkdir -p "$efipart" "$efidir"
+    mount --mkdir "$efipart" "$efidir"
     while ! grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux; do
     read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     read -rp "Specify EFI partition path (e.g. /dev/sda1): " efipart
-    mount --mkdir -p "$efipart" "$efidir"
+    mount --mkdir "$efipart" "$efidir"
     done
     grub-mkconfig -o /boot/grub/grub.cfg
     break
