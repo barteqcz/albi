@@ -17,7 +17,7 @@ echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 read -p "Specify hostname: " hostname
 read -p "Specify username: " username
 useradd -m "$username"
-while ! useradd -m "$username"
+while ! useradd -m $username; do
 read -p "Specify username: " username
 useradd -m "$username"
 done
@@ -35,7 +35,7 @@ do
         "UEFI")
     pacman -S grub efibootmgr efivar --noconfirm --needed
     read -p "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
-    while ! grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux
+    while ! grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux; do
     read -p "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     done
     grub-mkconfig -o /boot/grub/grub.cfg
@@ -44,7 +44,7 @@ do
         "BIOS")
     pacman -S grub --noconfirm --needed
     read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
-    while ! grub-install --target=i386-pc "$grubdir"
+    while ! grub-install --target=i386-pc $grubdir; do
     read -p "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
     done
     grub-mkconfig -o /boot/grub/grub.cfg
