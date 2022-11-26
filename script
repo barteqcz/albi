@@ -119,29 +119,29 @@ select opt in "${options[@]}"
 do
     case $opt in
         "KDE Plasma")
-    pacman -S plasma sddm gwenview kate konsole dolphin spectacle ark noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm --needed
+    pacman -S plasma sddm gwenview kate konsole dolphin spectacle ark noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts --noconfirm --needed
     systemctl enable sddm
     sed -i 's/Current=/Current=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
     sed -i 's/CursorTheme=/CursorTheme=breeze_cursors/g' /usr/lib/sddm/sddm.conf.d/default.conf
     break
     ;;
         "XFCE")
-    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-gtk-greeter gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm --needed
+    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-gtk-greeter gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts --noconfirm --needed
     systemctl enable lightdm
     break
     ;;
         "MATE")
-    pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm --needed
+    pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts --noconfirm --needed
     systemctl enable lightdm
     break
     ;;
         "Cinnamon")
-    pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm --needed
+    pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts --noconfirm --needed
     systemctl enable lightdm
     break
     ;;
         "GNOME")
-    pacman -S gnome gdm noto-fonts noto-fonts-emoji noto-fonts-cjk --noconfirm --needed
+    pacman -S gnome gdm noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts --noconfirm --needed
     systemctl enable gdm
     break
     ;;
