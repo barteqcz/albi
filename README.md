@@ -6,7 +6,6 @@ git clone https://github.com/barteqcz/albi
 cd albi/
 bash install
 ```
-CURRENTLY IN ALPHA VERSION (THE SCRIPT IS INCOMPLETE), DON'T RUN IT ON REAL HARDWARE
 
 <b> Troubleshooting <b/>
 
