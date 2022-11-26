@@ -3,7 +3,7 @@ rm -rf /etc/pacman.d/gnupg/
 pacman-key --init
 pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
-pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --noconfirm
+pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion --needed--noconfirm
 systemctl enable NetworkManager
 read -p "Specify country name: " srvloc
 while ! reflector --country "$srvloc" --save /etc/pacman.d/mirrorlist; do
@@ -15,9 +15,9 @@ sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 read -p "Specify hostname: " hostname
-while [[ $username != [a-z][0-9]* ]]; do
 read -p "Specify username: " username
-[[ $username == *[A-Z][a-z][0-9]* ]] || echo "Invalid format"
+while ! useradd -m $username
+read -p "Specify username: " username
 done
 passwd $username
 usermod -aG wheel $username
