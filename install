@@ -10,6 +10,7 @@
     esac
     done
 pacstrap -K /mnt base linux linux-firmware
-cp script /mnt/script
+cp script /mnt/
+cp postinstall /mnt/
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt bash script
