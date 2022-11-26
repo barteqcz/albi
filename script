@@ -158,7 +158,7 @@ while true
     do
     read -rp "Arch was installed successfully. Do you want to execute postinstall script and reboot? [y/n] " yn
     case $yn in
-        [Yy]* ) bash postinstall;;
+        [Yy]* ) rm script && pacman -Scc --noconfirm;;
         [Nn]* ) break;;
         * ) echo "Invalid option";;
     esac
