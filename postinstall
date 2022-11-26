@@ -1,6 +1,5 @@
 #!/bin/bash
 rm script
 pacman -Scc --noconfirm
-pacman -R $(pacman -Qtdq) --noconfirm
 exit
 reboot
