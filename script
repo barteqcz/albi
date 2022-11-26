@@ -16,7 +16,7 @@ locale-gen
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 read -p "Specify hostname: " hostname
 read -p "Specify username: " username
-useradd -m "$username"
+useradd -m $username
 while ! useradd -m $username; do
 read -p "Specify username: " username
 useradd -m "$username"
