@@ -14,5 +14,5 @@ In case, you can't install `git` package because of some keyring-related errors,
 ```
 pacman-key --init
 pacman-key --populate
-pacman -Syy archlinux git
+pacman -Syy archlinux-keyring git
 ```
