@@ -163,7 +163,7 @@ while true
     do
     read -rp "Arch was installed successfully. Do you want to run clean-up? [y/n] " yn
     case $yn in
-        [Yy]* ) rm script && pacman -Scc --noconfirm;;
+        [Yy]* ) rm script && exit && reboot;;
         [Nn]* ) break;;
         * ) echo "Invalid option";;
     esac
