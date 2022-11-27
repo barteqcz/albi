@@ -12,7 +12,7 @@ while true
         [Yy]* ) 
         read -rp "Specify country name: " srvloc
         while ! reflector --country "$srvloc" --save /etc/pacman.d/mirrorlist; do
-        echo "Invalid country"
+        echo "Invalid country. Tip: it has to be english name of the country name"
         read -rp "Specify country name: " srvloc
         done
         ;;
