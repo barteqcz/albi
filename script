@@ -28,6 +28,7 @@ echo "Invalid region"
 read -rp "Specify region (e.g. Europe/Prague): " localization
 done
 hwclock --systohc
+echo "pl_PL.UTF-8" > /etc/locale.conf
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
 read -rp "Specify hostname: " hostname
