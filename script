@@ -135,30 +135,40 @@ do
     systemctl enable sddm
     sed -i 's/Current=/Current=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
     sed -i 's/CursorTheme=/CursorTheme=breeze_cursors/g' /usr/lib/sddm/sddm.conf.d/default.conf
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
     systemctl enable cups
     break
     ;;
         "XFCE")
     pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-gtk-greeter gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
     systemctl enable lightdm
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
     systemctl enable cups
     break
     ;;
         "MATE")
     pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
     systemctl enable lightdm
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
     systemctl enable cups
     break
     ;;
         "Cinnamon")
     pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
     systemctl enable lightdm
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
     systemctl enable cups
     break
     ;;
         "GNOME")
     pacman -S gnome gdm noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
     systemctl enable gdm
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
     systemctl enable cups
     break
     ;;
