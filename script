@@ -161,7 +161,7 @@ done
 
 while true
     do
-    read -rp "Arch was installed successfully. Do you want to run clean-up? [y/n] " yn
+    read -rp "Arch was installed successfully. Do you want to end the script? [y/n] " yn
     case $yn in
         [Yy]* ) rm script && exit && reboot;;
         [Nn]* ) break;;
