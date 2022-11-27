@@ -173,7 +173,7 @@ done
 
 while true
     do
-    read -rp "Arch was installed successfully. Do you want to end the script? [y/n] " yn
+    read -rp "Arch was installed successfully. Do you want to exit chroot? [y/n] " yn
     case $yn in
         [Yy]* ) rm script && exit;;
         [Nn]* ) break;;
