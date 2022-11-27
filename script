@@ -3,11 +3,11 @@ rm -rf /etc/pacman.d/gnupg/
 pacman-key --init
 pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
-pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion ntfs-3g os-prober --noconfirm --needed
+pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion ntfs-3g os-prober  --noconfirm --needed
 systemctl enable NetworkManager
 while true
     do
-    read -rp "Do you want to pick up pacman mirror-servers? [y/n] " yn
+    read -rp "Do you want to pick up pacman mirror-servers or use the default ones? [y/n] " yn
     case $yn in
         [Yy]* ) 
         read -rp "Specify country name: " srvloc
@@ -21,7 +21,10 @@ while true
         * ) echo "Invalid option";;
     esac
     done
-ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
+read -rp "Specify region (e.g. Europe/Prague): " localization
+while ! ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime; do
+read -rp "Specify region (e.g. Europe/Prague): " localization
+done
 hwclock --systohc
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
@@ -101,15 +104,15 @@ select opt in "${options[@]}"
 do
     case $opt in
         "NVIDIA")
-    pacman -S xorg xorg-server nvidia nvidia-utils nvidia-settings --noconfirm --needed
+    pacman -S xorg xorg-server nvidia nvidia-utils lib32-nvidia-utils nvidia-settings --noconfirm --needed
     break
     ;;
         "AMD")
-    pacman -S xorg xorg-server mesa xf86-amdgpu --noconfirm --needed
+    pacman -S xorg xorg-server mesa xf86-amdgpu lib32-amdvlk lib32-vulkan-radeon --noconfirm --needed
     break
     ;;
         "Intel")
-    pacman -S xorg xorg-server mesa xf86-video-intel --noconfirm --needed
+    pacman -S xorg xorg-server mesa xf86-video-intel lib32-vulkan-intel --noconfirm --needed
     break
     ;;
         "Nouveau (open-source NVIDIA driver)")
