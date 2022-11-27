@@ -5,10 +5,22 @@ pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
 pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion ntfs-3g --noconfirm --needed
 systemctl enable NetworkManager
-read -rp "Specify country name: " srvloc
-while ! reflector --country "$srvloc" --save /etc/pacman.d/mirrorlist; do
-read -rp "Specify country name: " srvloc
-done
+while true
+    do
+    read -rp "Do you want to pick up pacman mirror-servers? [y/n] " yn
+    case $yn in
+        [Yy]* ) 
+        read -rp "Specify country name: " srvloc
+        while ! reflector --country "$srvloc" --save /etc/pacman.d/mirrorlist; do
+        read -rp "Specify country name: " srvloc
+        done
+        ;;
+        [Nn]* ) 
+        break
+        ;;
+        * ) echo "Invalid option";;
+    esac
+    done
 ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
 hwclock --systohc
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
