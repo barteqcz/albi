@@ -33,6 +33,7 @@ locale-gen
 read -rp "Specify hostname: " hostname
 read -rp "Specify username: " username
 while ! useradd -m "$username"; do
+echo "Invalid username. Tip: it has to be only lowercase, and can't begin with number"
 read -rp "Specify username: " username
 done
 passwd $username
