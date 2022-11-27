@@ -49,12 +49,12 @@ do
     case $opt in
         "UEFI")
     pacman -S grub efibootmgr efivar --noconfirm --needed
-    read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     read -rp "Specify EFI partition path (e.g. /dev/sda1): " efipart
+    read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     mount --mkdir "$efipart" "$efidir"
     while ! grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux; do
-    read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     read -rp "Specify EFI partition path (e.g. /dev/sda1): " efipart
+    read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     mount --mkdir "$efipart" "$efidir"
     done
     grub-mkconfig -o /boot/grub/grub.cfg
@@ -137,6 +137,7 @@ do
     case $opt in
         "KDE Plasma")
     pacman -S plasma sddm gwenview kate konsole dolphin spectacle ark noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
+    pacman -R discover
     systemctl enable sddm
     sed -i 's/Current=/Current=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
     sed -i 's/CursorTheme=/CursorTheme=breeze_cursors/g' /usr/lib/sddm/sddm.conf.d/default.conf
