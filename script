@@ -12,6 +12,7 @@ while true
         [Yy]* ) 
         read -rp "Specify country name: " srvloc
         while ! reflector --country "$srvloc" --save /etc/pacman.d/mirrorlist; do
+        echo "Invalid country"
         read -rp "Specify country name: " srvloc
         done
         ;;
@@ -23,12 +24,12 @@ while true
     done
 read -rp "Specify region (e.g. Europe/Prague): " localization
 while ! ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime; do
+echo "Invalid region"
 read -rp "Specify region (e.g. Europe/Prague): " localization
 done
 hwclock --systohc
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
-echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 read -rp "Specify hostname: " hostname
 read -rp "Specify username: " username
 while ! useradd -m "$username"; do
