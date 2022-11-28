@@ -25,8 +25,9 @@ while true
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
-echo "pl_PL.UTF-8" > /etc/locale.conf
-sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
+read -rp "Specify one basic locale to generate (for help, see locales-help file in the repo): localegen
+echo ""$localegen"" > /etc/locale.conf
+sed -i '/"$localegen"/s/^#//g' /etc/locale.gen
 locale-gen
 read -rp "Specify hostname: " hostname
 read -rp "Specify username: " username
