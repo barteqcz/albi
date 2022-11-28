@@ -3,7 +3,7 @@ rm -rf /etc/pacman.d/gnupg/
 pacman-key --init
 pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
-pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion ntfs-3g os-prober  --noconfirm --needed
+pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion ntfs-3g os-prober --noconfirm --needed
 systemctl enable NetworkManager
 while true
     do
@@ -23,10 +23,7 @@ while true
     esac
     done
 read -rp "Specify region (e.g. Europe/Prague): " localization
-while ! ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime; do
-echo "Invalid region"
-read -rp "Specify region (e.g. Europe/Prague): " localization
-done
+ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime; do
 hwclock --systohc
 echo "pl_PL.UTF-8" > /etc/locale.conf
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
@@ -34,7 +31,7 @@ locale-gen
 read -rp "Specify hostname: " hostname
 read -rp "Specify username: " username
 while ! useradd -m "$username"; do
-echo "Invalid username. Tip: it has to be only lowercase, and can't begin with number"
+echo "Invalid username. Tip: it has to be only lowercase, and can't begin with a number"
 read -rp "Specify username: " username
 done
 passwd $username
@@ -118,7 +115,7 @@ do
     pacman -S xorg xorg-server mesa xf86-video-intel lib32-vulkan-intel --noconfirm --needed
     break
     ;;
-        "Nouveau (open-source NVIDIA driver)")
+        "Nouveau")
     pacman -S xorg xorg-server mesa xf86-video-nouveau --noconfirm --needed
     break
     ;;
