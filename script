@@ -15,26 +15,164 @@ while true
         echo "Invalid country. Tip: it has to be english version of the country name"
         read -rp "Specify country name: " srvloc
         done
-        ;;
-        [Nn]* ) 
-        break
-        ;;
-        * ) echo "Invalid option";;
-    esac
-    done
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
-locales=$(ls /usr/share/i18n/locales)
-PS3="Select language: "
-options=("$locales")
+#WORKING ON LOCALES GENERATION
+read -rp "Specify hostname: " hostname
+read -rp "Specify username: " username
+while ! useradd -m "$username"; do
+echo "Invalid username. Tip: it has to be only lowercase, and can't begin with a number"
+read -rp "Specify username: " username
+done
+passwd $username
+usermod -aG wheel $username
+sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
+echo "$hostname" > /etc/hostname
+mkinitcpio -P
+
+PS3="UEFI/BIOS?: "
+options=("UEFI" "BIOS")
 select opt in "${options[@]}"
 do
+    case $opt in
+        "UEFI")
+    pacman -S grub efibootmgr efivar --noconfirm --needed
+    read -rp "Specify EFI partition path (e.g. /dev/sda1): " efipart
+    read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
+    mount --mkdir "$efipart" "$efidir"
+    while ! grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux; do
+    read -rp "Specify EFI partition path (e.g. /dev/sda1): " efipart
+    read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
+    mount --mkdir "$efipart" "$efidir"
+    done
+    grub-mkconfig -o /boot/grub/grub.cfg
+    break
+    ;;
+        "BIOS")
+    pacman -S grub --noconfirm --needed
+    read -rp "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
+    while ! grub-install --target=i386-pc $grubdir; do
+    read -rp "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
+    done
+    grub-mkconfig -o /boot/grub/grub.cfg
+    break
+    ;;
         *)
     echo "Invalid option"
     ;;
 esac
 done
+
+PS3="Which audio server should be installed?: "
+options=("Pipewire" "Pulseaudio" "None")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Pipewire")
+    pacman -S pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol --noconfirm --needed
+    systemctl enable --global pipewire
+    systemctl enable --global pipewire-pulse
+    break
+    ;;
+        "Pulseaudio")
+    pacman -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth pulseaudio-zeroconf pulseaudio-lirc pavucontrol --noconfirm --needed
+    systemctl enable --global pulseaudio
+    break
+    ;;
+        "None")
+    break
+    ;;
+        *)
+    echo "Invalid format"
+    ;;
+esac
+done
+
+PS3="Which graphics driver should be installed?: "
+options=("NVIDIA" "AMD" "Intel" "Nouveau (open-source NVIDIA driver)")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "NVIDIA")
+    pacman -S xorg xorg-server nvidia nvidia-utils lib32-nvidia-utils nvidia-settings --noconfirm --needed
+    break
+    ;;
+        "AMD")
+    pacman -S xorg xorg-server mesa xf86-amdgpu lib32-amdvlk lib32-vulkan-radeon --noconfirm --needed
+    break
+    ;;
+        "Intel")
+    pacman -S xorg xorg-server mesa xf86-video-intel lib32-vulkan-intel --noconfirm --needed
+    break
+    ;;
+        "Nouveau")
+    pacman -S xorg xorg-server mesa xf86-video-nouveau --noconfirm --needed
+    break
+    ;;
+        "None")
+    break
+    ;;
+        *)
+    echo "Invalid option"
+    ;;
+esac
+done
+
+PS3="Which desktop environment should be installed?: "
+options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME" "None")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "KDE Plasma")
+    pacman -S plasma sddm gwenview kate konsole dolphin spectacle ark noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
+    pacman -R discover --noconfirm
+    systemctl enable sddm
+    sed -i 's/Current=/Current=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
+    sed -i 's/CursorTheme=/CursorTheme=breeze_cursors/g' /usr/lib/sddm/sddm.conf.d/default.conf
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
+    systemctl enable cups
+    break
+    ;;
+        "XFCE")
+    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-gtk-greeter gvfs thunar thunar-volman network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
+    systemctl enable lightdm
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
+    systemctl enable cups
+    break
+    ;;
+        "MATE")
+    pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
+    systemctl enable lightdm
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
+    systemctl enable cups
+    break
+    ;;
+        "Cinnamon")
+    pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
+    systemctl enable lightdm
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
+    systemctl enable cups
+    break
+    ;;
+        "GNOME")
+    pacman -S gnome gdm noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
+    systemctl enable gdm
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
+    systemctl enable cups
+    break
+    ;;
+        "None")
+    break
+    ;;
+        *)
+    echo "Invalid option"
+    ;;
 
 while true
     do
