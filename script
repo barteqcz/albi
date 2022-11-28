@@ -25,13 +25,7 @@ while true
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
-read -rp "Specify one basic locale to generate (for help, see locales-help file in the repo): localegen
-echo ""$localegen"" > /etc/locale.conf
-sed -i '/"$localegen"/s/^#//g' /etc/locale.gen
-while ! locale-gen; do
-echo "Couldn't find such a locales. Tip: remember to use a correct format, for help see locales-help file in this repo)"
-read -rp "Specify one basic locale to generate (for help, see locales-help file in the repo): localegen
-done
+#WORKING ON LOCALES GENERATION
 read -rp "Specify hostname: " hostname
 read -rp "Specify username: " username
 while ! useradd -m "$username"; do
