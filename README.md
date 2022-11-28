@@ -10,7 +10,7 @@ bash install
 
 ### Configuration
 
-There are some elements, that you should configure in a detached file - `config.conf`
+To configure locales, you should see a detached file - `locale.conf`
 
 ### Troubleshooting
 
