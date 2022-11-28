@@ -3,7 +3,7 @@
 ### Installing
 
 ```
-curl https://github.com/barteqcz/albi
+curl -S https://github.com/barteqcz/albi
 cd albi/
 bash install
 ```
