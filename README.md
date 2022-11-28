@@ -8,10 +8,6 @@ cd albi/
 bash install
 ```
 
-### Configuration
-
-To configure locales, you should see a detached file - `locale.conf`
-
 ### Troubleshooting
 
 In case, you can't install `git` package because of some keyring-related errors, do the following:
