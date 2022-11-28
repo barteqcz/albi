@@ -3,11 +3,14 @@
 ### Installing
 
 ```
-pacman -Syy git
-git clone https://github.com/barteqcz/albi
+curl https://github.com/barteqcz/albi
 cd albi/
 bash install
 ```
+
+### Configuration
+
+There are some elements, that you should configure in a detached file - `config.conf`
 
 ### Troubleshooting
 
