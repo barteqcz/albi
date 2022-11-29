@@ -26,11 +26,11 @@ ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
 clear
 ls /usr/share/i18n/locales/
-read -rp "Select locale from the displayed ones: " locale
+read -rp "Specify locale from the displayed ones: " locale
 echo "LANG="$locale".UTF-8" > /etc/locale.conf
 clear
 cat /etc/locale.gen
-read -rp "Select locale to generate from the displayed ones: " locale2
+read -rp "Specify locale to generate from the displayed ones: " locale2
 sed -i '/"$locale2"/s/^#//g' /etc/locale.gen
 locale-gen
 read -rp "Specify hostname: " hostname
