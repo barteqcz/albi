@@ -27,8 +27,11 @@ hwclock --systohc
 clear
 ls /usr/share/i18n/locales/
 read -rp "Select locale from the displayed ones: " locale
-echo "LANG="$locale".UTF-8" /etc/locale.conf
-sed -i '/"$locale".UTF-8/s/^#//g' /etc/locale.gen
+echo "LANG="$locale".UTF-8" > /etc/locale.conf
+clear
+cat /etc/locale.gen
+read -rp "Select locale to generate from the displayed ones: " locale2
+sed -i '/"$locale2"/s/^#//g' /etc/locale.gen
 locale-gen
 read -rp "Specify hostname: " hostname
 read -rp "Specify username: " username
