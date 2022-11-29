@@ -26,6 +26,7 @@ ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
 clear
 ls /usr/share/i18n/locales/
+echo " "
 read -rp "Specify locale from the displayed ones: " locale
 echo "LANG="$locale".UTF-8" > /etc/locale.conf
 clear
