@@ -185,7 +185,8 @@ do
         *)
     echo "Invalid option"
     ;;
-
+    esac
+    done
 while true
     do
     read -rp "Arch was installed successfully. Do you want to exit chroot? [y/n] " yn
