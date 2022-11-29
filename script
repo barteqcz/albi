@@ -29,9 +29,7 @@ ls /usr/share/i18n/locales/
 read -rp "Specify locale from the displayed ones: " locale
 echo "LANG="$locale".UTF-8" > /etc/locale.conf
 clear
-cat /etc/locale.gen
-read -rp "Specify locale to generate from the displayed ones: " locale2
-sed -i '/"$locale2"/s/^#//g' /etc/locale.gen
+sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
 read -rp "Specify hostname: " hostname
 read -rp "Specify username: " username
