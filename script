@@ -7,6 +7,7 @@ pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xd
 systemctl enable NetworkManager
 sed -i '/[multilib]/s/^#//g'
 sed -i '/Include = /etc/pacman.d/mirrorlist/s/^#//g'
+pacman -Syy
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
