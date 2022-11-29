@@ -102,7 +102,7 @@ esac
 done
 
 PS3="Which graphics driver should be installed?: "
-options=("NVIDIA" "AMD" "Intel" "Nouveau (open-source NVIDIA driver)")
+options=("NVIDIA" "AMD" "Intel" "Nouveau" "None")
 select opt in "${options[@]}"
 do
     case $opt in
