@@ -17,6 +17,7 @@ while true
         ;;
         [Nn]* ) break;;
         *) echo "Invalid Option";;
+        esac
         done
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
