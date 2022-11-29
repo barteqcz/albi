@@ -90,7 +90,7 @@ esac
 done
 
 PS3="Which graphics driver should be installed?: "
-options=("NVIDIA" "AMD" "Intel" "Nouveau" "None")
+options=("NVIDIA" "AMD" "Intel" "Nouveau" "Virtual machine" "None")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -103,13 +103,18 @@ do
     break
     ;;
         "Intel")
-    pacman -S xorg xorg-server  --noconfirm --needed
+    pacman -S xorg xorg-server xf86-video-intel mesa lib32-mesa --noconfirm --needed
     break
     ;;
         "Nouveau")
     pacman -S xorg xorg-server  --noconfirm --needed
     break
     ;;
+
+        "Virtual machine")
+    pacman -S xf86-video-vmware xf86-input-vmmouse --noconfirm --needed
+    break
+    ;;   
         "None")
     break
     ;;
