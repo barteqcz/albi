@@ -14,6 +14,7 @@ while true
         while ! reflector --country "$srvloc" --save /etc/pacman.d/mirrorlist; do
         echo "Invalid country. Tip: it has to be english version of the country name"
         read -rp "Specify country name: " srvloc
+        break
         ;;
         [Nn]* ) break;;
         *) echo "Invalid Option";;
