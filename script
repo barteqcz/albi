@@ -107,7 +107,7 @@ select opt in "${options[@]}"
 do
     case $opt in
         "NVIDIA")
-    pacman -S xorg xorg-server nvidia nvidia-utils lib32-nvidia-utils nvidia-settings --noconfirm --needed
+    pacman -S xorg xorg-server nvidia nvidia-utils nvidia-settings --noconfirm --needed
     break
     ;;
         "AMD")
