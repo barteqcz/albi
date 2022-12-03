@@ -8,26 +8,26 @@ systemctl enable NetworkManager
 sed -i '/[multilib]/s/^#//g'
 sed -i '/Include = /etc/pacman.d/mirrorlist/s/^#//g'
 pacman -Syy
+clear
+read -rp "Specify hostname: " hostname
+read -rp "Specify username: " username
+while ! useradd -m "$username" --badname; do
+echo "Invalid username"
+read -rp "Specify username: " username
+done
+passwd "$username"
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
-clear
-ls /usr/share/i18n/locales/
-echo " "
-read -rp "Specify locale from the displayed ones: " locale
-echo "LANG="$locale".UTF-8" > /etc/locale.conf
-clear
+echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
-read -rp "Specify hostname: " hostname
-read -rp "Specify username: " username
-read -rp "Specify username: " username
-useradd -m "$username" --badname
-passwd $username
-usermod -aG wheel $username
+
+usermod -aG wheel "$username"
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
 echo "$hostname" > /etc/hostname
 mkinitcpio -P
+clear
 
 PS3="UEFI/BIOS?: "
 options=("UEFI" "BIOS")
@@ -178,12 +178,13 @@ do
     ;;
     esac
     done
+    clear
 while true
     do
     read -rp "Arch was installed successfully. Do you want to exit chroot? [y/n] " yn
     case $yn in
         [Yy]* ) rm script && exit;;
-        [Nn]* ) break;;
+        [Nn]* ) clear && break;;
         * ) echo "Invalid option";;
     esac
     done
