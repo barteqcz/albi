@@ -22,7 +22,6 @@ hwclock --systohc
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
-
 usermod -aG wheel "$username"
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
 echo "$hostname" > /etc/hostname
