@@ -56,6 +56,7 @@ do
     ;;
 esac
 done
+clear
 
 PS3="Which audio server should be installed?: "
 options=("Pipewire" "Pulseaudio" "None")
@@ -81,6 +82,7 @@ do
     ;;
 esac
 done
+clear
 
 PS3="Which graphics driver should be installed?: "
 options=("NVIDIA" "AMD" "Intel" "Nouveau" "Virtual machine" "None")
@@ -116,6 +118,7 @@ do
     ;;
 esac
 done
+clear
 
 PS3="Which desktop environment should be installed?: "
 options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME" "None")
@@ -171,11 +174,12 @@ do
         *)
     echo "Invalid option"
     ;;
-    esac
-    done
-    clear
+esac
+done
+clear
+    
 while true
-    do
+do
     read -rp "Arch was installed successfully. Do you want to exit chroot? [y/n] " yn
     case $yn in
         [Yy]* ) rm script && exit;;
