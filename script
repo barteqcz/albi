@@ -5,8 +5,8 @@ pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
 pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion ntfs-3g os-prober --noconfirm --needed
 systemctl enable NetworkManager
-sed -i '/[multilib]/s/^#//g'
-sed -i '/Include = /etc/pacman.d/mirrorlist/s/^#//g'
+sed -i '/[multilib]/s/^#//g' /etc/pacman.conf
+sed -i '/Include = /etc/pacman.d/mirrorlist/s/^#//g' /etc/pacman.conf
 pacman -Syy
 clear
 read -rp "Specify hostname: " hostname
