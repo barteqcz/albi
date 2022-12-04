@@ -12,7 +12,6 @@ clear
 read -rp "Specify hostname: " hostname
 read -rp "Specify username: " username
 while ! useradd -m "$username" --badname; do
-echo "Invalid username"
 read -rp "Specify username: " username
 done
 passwd "$username"
@@ -41,7 +40,6 @@ do
     while ! grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux; do
     read -rp "Specify EFI partition path (e.g. /dev/sda1): " efipart
     read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
-    mount --mkdir "$efipart" "$efidir"
     done
     grub-mkconfig -o /boot/grub/grub.cfg
     break
