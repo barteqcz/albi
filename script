@@ -92,7 +92,7 @@ done
 clear
 
 PS3="Which graphics driver should be installed?: "
-options=("All available open-source drivers" "NVIDIA" "AMD/ATI (open-source)" "Intel (open-source)" "Nouveau (open-source nvidia driver)" "Virtual machine" "None")
+options=("All available open-source drivers" "NVIDIA (proprietary)" "AMD/ATI (open-source)" "Intel (open-source)" "Nouveau (open-source nvidia driver)" "Virtual machine" "None")
 select opt in "${options[@]}"
 do
     case $opt in
