@@ -94,7 +94,8 @@ do
         
         "All available open-source drivers")
     pacman -S xorg xorg-server mesa xf86-video-amdgpu xf86-video-ati xf86-video-nouveau xf86-video-vmware libva-mesa-driver libva-intel-driver intel-media-driver vulkan-radeon vulkan-intel --noconfirm --needed
-        
+    break
+    ;;
         "NVIDIA (proprietary)")
     pacman -S xorg xorg-server nvidia nvidia-utils nvidia-settings --noconfirm --needed
     break
