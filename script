@@ -5,6 +5,10 @@ pacman-key --populate
 pacman -Sy archlinux-keyring --noconfirm
 pacman -S vim linux-headers base-devel reflector networkmanager git xdg-utils xdg-user-dirs bash-completion ntfs-3g os-prober --noconfirm --needed
 systemctl enable NetworkManager
+read -rp "Specify country for mirror servers: " country
+while ! reflector --country "$country" --save /etc/pacman.d/mirrorlist; do
+read -rp "Specify country for mirror servers: " country
+done
 clear
 read -rp "Specify hostname: " hostname
 read -rp "Specify username: " username
