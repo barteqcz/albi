@@ -1,5 +1,9 @@
 # ALBI - Arch Linux Bash Installer
 
+### About
+
+ALBI aims to automate the Arch Linux installation process.
+
 ### Installing
 
 ```
