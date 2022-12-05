@@ -10,8 +10,9 @@ bash install
 ```
 ### Usage and preparation
 
-Before running the script, it is necessary to manually, arbitrarily, but correctly partition the disk, and connect the device to the internet (when it comes to wifi connection). To do that, you can use `iwd` (for help, see https://wiki.archlinux.org/title/iwd)
+Before running the script, it is necessary to manually, arbitrarily, but correctly partition the disk, and connect the device to the internet (when it comes to wifi connection). To do that, you can use `iwd`
 For help with partitioning, please refer to https://wiki.archlinux.org/title/partitioning
+For help with connecting the device to WIFI, please refer to https://wiki.archlinux.org/title/iwd
 
 ### Troubleshooting
 
