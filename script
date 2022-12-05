@@ -131,7 +131,6 @@ do
     case $opt in
         "KDE Plasma")
     pacman -S plasma sddm gwenview kate konsole dolphin spectacle ark noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip system-config-printer --noconfirm --needed
-    pacman -R discover --noconfirm
     systemctl enable sddm
     sed -i 's/Current=/Current=breeze/g' /usr/lib/sddm/sddm.conf.d/default.conf
     sed -i 's/CursorTheme=/CursorTheme=breeze_cursors/g' /usr/lib/sddm/sddm.conf.d/default.conf
