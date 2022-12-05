@@ -41,6 +41,7 @@ do
     read -rp "Specify EFI partition path (e.g. /dev/sda1): " efipart
     read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     done
+    sed -i '/GRUB_DISABLE_OS_PROBER=false/s/^#//g' /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg
     break
     ;;
@@ -50,6 +51,7 @@ do
     while ! grub-install --target=i386-pc $grubdir; do
     read -rp "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
     done
+    sed -i '/GRUB_DISABLE_OS_PROBER=false/s/^#//g' /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg
     break
     ;;
