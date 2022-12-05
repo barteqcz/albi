@@ -9,6 +9,10 @@
         * ) echo "Invalid option";;
     esac
     done
+read -rp "Specify country for mirror servers on the installation medium: " country
+while ! reflector --country "$country" --save /etc/pacman.d/mirrorlist; do
+read -rp "Specify country for mirror servers on the installation medium: " country
+done
 pacstrap -K /mnt base linux linux-firmware
 cp script /mnt/
 genfstab -U /mnt >> /mnt/etc/fstab
