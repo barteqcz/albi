@@ -9,6 +9,7 @@ read -rp "Specify country for mirror servers: " country
 while ! reflector --country "$country" --save /etc/pacman.d/mirrorlist; do
 read -rp "Specify country for mirror servers: " country
 done
+pacman -Syy
 clear
 read -rp "Specify hostname: " hostname
 read -rp "Specify username: " username
