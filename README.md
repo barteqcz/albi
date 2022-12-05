@@ -16,7 +16,7 @@ For help with connecting the device to WIFI using `iwd`, please refer to https:/
 
 ### Troubleshooting
 
-In case, you can't install `git` package because of some keyring-related errors, do the following:
+In case, you can't install `git` package because of keyring-related errors, do the following:
 
 ```
 rm -rf /etc/pacman.d/gnupg/
