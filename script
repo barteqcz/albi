@@ -21,8 +21,10 @@ passwd "$username"
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
-echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
-sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
+echo "As of now, the locales are set to en_US by default. You can change that manually after the installation"
+sleep 2
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+sed -i '/en_US.UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
 usermod -aG wheel "$username"
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
