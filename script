@@ -17,7 +17,9 @@ read -rp "Specify username: " username
 while ! useradd -m "$username" --badname; do
 read -rp "Specify username: " username
 done
+while ! passwd "$username"; do
 passwd "$username"
+done
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
