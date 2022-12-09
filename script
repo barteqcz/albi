@@ -23,12 +23,8 @@ done
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
-read -rp "Specify language: " lang
-echo "LANG="$lang".UTF-8" > /etc/locale.conf
-read -rp "Specify region: " region
-while ! sed -i '/"$region"/s/^#//g' /etc/locale.gen; do
-read -rp "Specify region: " region
-done
+sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
+echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 locale-gen
 usermod -aG wheel "$username"
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
