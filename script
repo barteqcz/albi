@@ -23,6 +23,7 @@ done
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
+# edit these lines set other locales setting
 sed -i '/pl_PL.UTF-8/s/^#//g' /etc/locale.gen
 echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
 locale-gen
