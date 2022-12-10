@@ -55,7 +55,7 @@ do
         "BIOS")
     pacman -S grub --noconfirm --needed
     read -rp "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
-    while ! grub-install --target=i386-pc $grubdir; do
+    while ! grub-install --target=i386-pc "$grubdir"; do
     read -rp "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
     done
     grub-mkconfig -o /boot/grub/grub.cfg
