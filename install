@@ -10,7 +10,7 @@
     esac
     done
     clear
-read -rp "Specify country for mirror servers on the installation medium: " country
+read -p "Specify country for mirror servers on the installation medium: " country
 while ! reflector --country "$country" --save /etc/pacman.d/mirrorlist; do
 read -rp "Specify country for mirror servers on the installation medium: " country
 done
