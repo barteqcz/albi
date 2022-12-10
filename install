@@ -9,10 +9,12 @@
         * ) echo "Invalid option";;
     esac
     done
+    clear
 read -rp "Specify country for mirror servers on the installation medium: " country
 while ! reflector --country "$country" --save /etc/pacman.d/mirrorlist; do
 read -rp "Specify country for mirror servers on the installation medium: " country
 done
+clear
 
 PS3="Which kernel do you want to install?: "
 options=("Normal kernel" "LTS kernel" "ZEN kernel")
