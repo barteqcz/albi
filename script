@@ -168,7 +168,7 @@ do
     break
     ;;
         "Cinnamon")
-    pacman -S cinnamon cinnamon-translations lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups-pk-helper cups system-config-printer hplip --noconfirm --needed
+    pacman -S cinnamon cinnamon-translations gnome-terminal lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups-pk-helper cups system-config-printer hplip --noconfirm --needed
     systemctl enable lightdm
     sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/g' /etc/lightdm/lightdm.conf
     touch /etc/lightdm-slick-greeter.conf
