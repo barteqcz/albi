@@ -15,8 +15,9 @@ bash install
 ### Usage and preparation
 
 Before running the script, it is necessary to manually, arbitrarily, but correctly partition the disk, and connect the device to the internet (**when it comes to wifi connection**). <br>
-For help with partitioning, please refer to https://wiki.archlinux.org/title/partitioning <br>
-For help with connecting the device to WIFI using `iwd`, please refer to https://wiki.archlinux.org/title/iwd
+For help with partitioning, refer to https://wiki.archlinux.org/title/partitioning <br>
+For help with connecting the device to WIFI using `iwd`, refer to https://wiki.archlinux.org/title/iwd <br>
+To change locale settings, please edit 27 and 28 lines in `script` file accordingly. The default ones are set to English (United States).
 
 ### Troubleshooting
 
