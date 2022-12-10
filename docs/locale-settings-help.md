@@ -15,9 +15,6 @@ You have to specify appropiate locale setting. Again, it's recommended to use UT
 
 ### List of available locales
 
-The locale-gen command will generate all the locales, placing them in /usr/lib/locale.
-A list of supported locales is included in this file. Uncomment the ones you need.
-
 aa_DJ.UTF-8 UTF-8  
 aa_DJ ISO-8859-1  
 aa_ER UTF-8  
