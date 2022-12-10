@@ -2,7 +2,7 @@
 
 ### Setting locale in `/etc/locale.conf`
 
-It's done by echoing `LANG=en_US.UTF-8` to `/etc/locale.conf`
+It's done by echoing, for example, `LANG=en_US.UTF-8` to `/etc/locale.conf`
 To set your desired locale setting, you have to specify appropiate locale setting. It's recommended to use UTF-8 encoding though.
 
 ### Setting locale in `/etc/locale.gen`
