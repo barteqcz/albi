@@ -24,6 +24,7 @@ done
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
+timedatectl set-ntp true
 # edit these lines set other locales setting
 sed -i '/en_US.UTF-8/s/^#//g' /etc/locale.gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
@@ -195,8 +196,6 @@ do
 esac
 done
 clear
-
-timedatectl set-ntp true
 
 while true
 do
