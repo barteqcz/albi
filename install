@@ -9,11 +9,33 @@
         * ) echo "Invalid option";;
     esac
     done
+PS3="Which kernel do you want to install?: "
+options=("Normal kernel" "LTS kernel" "ZEN kernel")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Normal kernel")
+    pacstrap -K /mnt base linux linux-firmware linux-headers
+    break
+    ;;
+        "LTS kernel")
+    pacstrap -K /mnt base linux-lts linux-firmware linux-lts-headers
+    break
+    ;;
+        "ZEN kernel")
+    pacstrap -K /mnt base linux-zen linux-firmware linux-zen-headers
+    break
+    ;;
+        *)
+    echo "Invalid option"
+    ;;
+esac
+done
+clear
 read -rp "Specify country for mirror servers on the installation medium: " country
 while ! reflector --country "$country" --save /etc/pacman.d/mirrorlist; do
 read -rp "Specify country for mirror servers on the installation medium: " country
 done
-pacstrap -K /mnt base linux linux-firmware
 cp script /mnt/
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt bash script
