@@ -45,7 +45,8 @@ do
     read -rp "Specify the location of your EFI partition (e.g. /dev/sda1): " efipart
     read -rp "Specify the mount-point of your EFI partition (e.g. /boot/efi, /efi, /boot): " efidir
     umount "$efipart"
-    mount --mkdir "$efipart" "$efidir"
+    mkdir -p "$efidir"
+    mount "$efipart" "$efidir"
     while ! grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux; do
     read -rp "Specify EFI partition path (e.g. /dev/sda1): " efipart
     read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
