@@ -21,6 +21,8 @@ done
 while ! passwd "$username"; do
 passwd "$username"
 done
+clear
+timedatectl list-timezones
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
