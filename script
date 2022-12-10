@@ -152,16 +152,18 @@ do
     break
     ;;
         "XFCE")
-    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-gtk-greeter gvfs thunar thunar-volman cups-pk-helper system-config-printer network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
+    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-slick-greeter gvfs thunar thunar-volman cups-pk-helper system-config-printer network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups hplip --noconfirm --needed
     systemctl enable lightdm
+    sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/g' /etc/lightdm/lightdm.conf
     sudo rm /usr/share/applications/hp-uiscan.desktop
     sudo rm /usr/share/applications/hplip.desktop
     systemctl enable cups
     break
     ;;
         "MATE")
-    pacman -S mate mate-extra lightdm lightdm-gtk-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups-pk-helper cups hplip system-config-printer --noconfirm --needed
+    pacman -S mate mate-extra lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts cups-pk-helper cups hplip system-config-printer --noconfirm --needed
     systemctl enable lightdm
+    sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/g' /etc/lightdm/lightdm.conf
     sudo rm /usr/share/applications/hp-uiscan.desktop
     sudo rm /usr/share/applications/hplip.desktop
     systemctl enable cups
