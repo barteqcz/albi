@@ -22,14 +22,13 @@ while ! passwd "$username"; do
 passwd "$username"
 done
 clear
-timedatectl list-timezones
 read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
-timedatectl set-ntp true
-# edit these lines set other locales setting
-sed -i '/en_US.UTF-8/s/^#//g' /etc/locale.gen
-echo "LANG=en_US.UTF-8" > /etc/locale.conf
+read -rp "Specify locale to uncomment in /etc/locale.gen: " localegen
+sed -i '/"$localegen"/s/^#//g' /etc/locale.gen
+read -rp "Specify locale to echo to /etc/locale.conf: " localeconf
+echo "LANG="$localeconf"" > /etc/locale.conf
 locale-gen
 usermod -aG wheel "$username"
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^#//g' /etc/sudoers
