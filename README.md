@@ -17,7 +17,7 @@ bash install
 Before running the script, it is necessary to manually, arbitrarily, but correctly partition the disk, and connect the device to the internet (**when it comes to wifi connection**). 
 <br>
  
-For help with partitioning, refer to https://wiki.archlinux.org/title/partitioning
+For help with partitioning, refer to https://wiki.archlinux.org/title/partitioning#Example_layouts
 <br>
 
 For help with connecting the device to WIFI using `iwd`, refer to https://wiki.archlinux.org/title/iwd
