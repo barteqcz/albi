@@ -11,7 +11,7 @@ It's done by uncommenting appropiate line in `/etc/locale.gen` file. In ALBI, it
 ```
 sed -i '/en_US.UTF-8/s/^#//g' /etc/locale.gen
 ```
-In this case, you have to specify appropiate locale setting. Again, it's recommended to use UTF-8 encoding. List of available entries is available in `locale.gen` file, and here is what it looks like:
+You have to specify appropiate locale setting. Again, it's recommended to use UTF-8 encoding. List of available entries is available in `locale.gen` file, and here is what it looks like:
 
 ### List of available locales
 
