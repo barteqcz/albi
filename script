@@ -194,7 +194,9 @@ do
 esac
 done
 clear
-    
+
+timedatectl set-ntp true
+
 while true
 do
     read -rp "Arch was installed successfully. Do you want to exit chroot? [y/n] " yn
