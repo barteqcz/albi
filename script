@@ -26,7 +26,9 @@ read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
 read -rp "Specify locale to uncomment in /etc/locale.gen: " localegen
-sed -i '/"$localegen"/s/^#//g' /etc/locale.gen
+while ! sed -i '/"$localegen"/s/^#//g' /etc/locale.gen; do
+read -rp "Specify locale to uncomment in /etc/locale.gen: " localegen
+done
 read -rp "Specify locale to echo to /etc/locale.conf: " localeconf
 echo "LANG="$localeconf"" > /etc/locale.conf
 locale-gen
