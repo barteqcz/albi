@@ -9,6 +9,11 @@
         * ) echo "Invalid option";;
     esac
     done
+read -rp "Specify country for mirror servers on the installation medium: " country
+while ! reflector --country "$country" --save /etc/pacman.d/mirrorlist; do
+read -rp "Specify country for mirror servers on the installation medium: " country
+done
+
 PS3="Which kernel do you want to install?: "
 options=("Normal kernel" "LTS kernel" "ZEN kernel")
 select opt in "${options[@]}"
@@ -32,10 +37,6 @@ do
 esac
 done
 clear
-read -rp "Specify country for mirror servers on the installation medium: " country
-while ! reflector --country "$country" --save /etc/pacman.d/mirrorlist; do
-read -rp "Specify country for mirror servers on the installation medium: " country
-done
 cp script /mnt/
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt bash script
