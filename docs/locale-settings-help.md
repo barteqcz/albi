@@ -149,7 +149,7 @@ A list of supported locales is included in this file. Uncomment the ones you nee
 #en_PH ISO-8859-1  
 #en_SG.UTF-8 UTF-8  
 #en_SG ISO-8859-1  
-en_US.UTF-8 UTF-8  
+#en_US.UTF-8 UTF-8  
 #en_US ISO-8859-1  
 #en_ZA.UTF-8 UTF-8  
 #en_ZA ISO-8859-1  
