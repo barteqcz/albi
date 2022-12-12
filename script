@@ -142,7 +142,7 @@ done
 clear
 
 PS3="Which desktop environment should be installed?: "
-options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME" "Budgie" "None")
+options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME" "Budgie" "LXQt" "None")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -197,10 +197,15 @@ do
     sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/g' /etc/lightdm/lightdm.conf
     sudo rm /usr/share/applications/hp-uiscan.desktop
     sudo rm /usr/share/applications/hplip.desktop
-    git clone https://aur.archlinux.org/plata-theme
-    cd plata-theme
-    makepkg -si
-    cd
+    systemctl enable cups
+    break
+    ;;
+        "LXQt")
+    pacman -S lxqt papirus-icon-theme lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk cups-pk-helper cups system-config-printer hplip --noconfirm --needed
+    systemctl enable lightdm
+    sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/g' /etc/lightdm/lightdm.conf
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
     systemctl enable cups
     break
     ;;
