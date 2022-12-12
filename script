@@ -219,7 +219,7 @@ do
     read -rp "Arch was installed successfully. Do you want to exit chroot? [y/n] " yn
     case $yn in
         [Yy]* ) rm script && exit;;
-        [Nn]* ) clear && break;;
+        [Nn]* ) arch-chroot /mnt;;
         * ) echo "Invalid option";;
     esac
     done
