@@ -26,9 +26,9 @@ read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
 sed -i '/en_US.UTF-8/s/^#//g' /etc/locale.gen
-# Specify your desired locale below
+# Specify your desired locale below. For available ones, see locales.md
 sed -i '/en_US.UTF-8/s/^#//g' /etc/locale.gen
-read -rp "Specify your desired language: " localeconf
+read -rp "Specify your desired language (for help, see locales.md): " localeconf
 echo "LANG="$localeconf"" > /etc/locale.conf
 locale-gen
 usermod -aG wheel "$username"
@@ -142,7 +142,7 @@ done
 clear
 
 PS3="Which desktop environment should be installed?: "
-options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME" "None")
+options=("KDE Plasma" "XFCE" "MATE" "Cinnamon" "GNOME" "Budgie" "None")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -157,7 +157,7 @@ do
     break
     ;;
         "XFCE")
-    pacman -S xfce4 xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-slick-greeter gvfs thunar thunar-volman cups-pk-helper system-config-printer network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk cups hplip --noconfirm --needed
+    pacman -S xfce4 xfce4-pulseaudio-plugin xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-slick-greeter gvfs thunar thunar-volman cups-pk-helper system-config-printer network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk cups hplip --noconfirm --needed
     systemctl enable lightdm
     sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/g' /etc/lightdm/lightdm.conf
     sudo rm /usr/share/applications/hp-uiscan.desktop
@@ -184,10 +184,23 @@ do
     break
     ;;
         "GNOME")
-    pacman -S gnome gdm noto-fonts noto-fonts-emoji noto-fonts-cjk cups-pk-helper cups system-config-printer hplip --noconfirm --needed
+    pacman -S gnome gnome-terminal gdm noto-fonts noto-fonts-emoji noto-fonts-cjk cups-pk-helper cups system-config-printer hplip --noconfirm --needed
     systemctl enable gdm
     sudo rm /usr/share/applications/hp-uiscan.desktop
     sudo rm /usr/share/applications/hplip.desktop
+    systemctl enable cups
+    break
+    ;;
+        "Budgie")
+    pacman -S budgie-desktop budgie-desktop-view network-manager-applet lightdm lightdm-slick-greeter noto-fonts noto-fonts-emoji noto-fonts-cjk cups-pk-helper cups system-config-printer hplip --noconfirm --needed
+    systemctl enable lightdm
+    sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/g' /etc/lightdm/lightdm.conf
+    sudo rm /usr/share/applications/hp-uiscan.desktop
+    sudo rm /usr/share/applications/hplip.desktop
+    git clone https://aur.archlinux.org/plata-theme
+    cd plata-theme
+    makepkg -si
+    cd
     systemctl enable cups
     break
     ;;
