@@ -157,7 +157,7 @@ do
     break
     ;;
         "XFCE")
-    pacman -S xfce4 xfce4-pulseaudio-plugin xfce4-whiskermenu-plugin xfce4-terminal xfce4-dev-tools xfce4-screenshooter lightdm lightdm-slick-greeter gvfs thunar thunar-volman cups-pk-helper system-config-printer network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk cups hplip --noconfirm --needed
+    pacman -S xfce4 xfce4-goodies xfce4-terminal xfce4-dev-tools lightdm lightdm-slick-greeter gvfs thunar thunar-volman cups-pk-helper system-config-printer network-manager-applet noto-fonts noto-fonts-emoji noto-fonts-cjk cups hplip --noconfirm --needed
     systemctl enable lightdm
     sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/g' /etc/lightdm/lightdm.conf
     sudo rm /usr/share/applications/hp-uiscan.desktop
