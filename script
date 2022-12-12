@@ -26,9 +26,9 @@ read -rp "Specify region (e.g. Europe/Prague): " localization
 ln -sf /usr/share/zoneinfo/"$localization" /etc/localtime
 hwclock --systohc
 sed -i '/en_US.UTF-8/s/^#//g' /etc/locale.gen
-# Specify your desired locale below. For available ones, see locales.md
+# Specify your desired locale below. For available ones, see /docs/locales.md
 sed -i '/en_US.UTF-8/s/^#//g' /etc/locale.gen
-read -rp "Specify your desired language (for help, see locales.md): " localeconf
+read -rp "Specify your desired language (for help, see /docs/locales.md): " localeconf
 echo "LANG="$localeconf"" > /etc/locale.conf
 locale-gen
 usermod -aG wheel "$username"
