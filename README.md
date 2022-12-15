@@ -23,7 +23,7 @@ For help with partitioning, refer to https://wiki.archlinux.org/title/partitioni
 For help with connecting the device to WIFI using `iwd`, refer to https://wiki.archlinux.org/title/iwd
 <br>
  
-To see list of available locales, see [this](https://github.com/barteqcz/albi/blob/main/docs/locale-list.md)
+To see list of available locales, see [this](https://github.com/barteqcz/albi/blob/main/docs/locales.md)
 
 ### Troubleshooting
 
