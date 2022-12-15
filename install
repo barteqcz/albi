@@ -11,7 +11,8 @@
     done
     clear
 read -rp "Specify country for mirror servers on the installation medium: " country
-while ! reflector --country "$country" --save /etc/pacman.d/mirrorlist; do
+while ! reflector --verbose --country "$country" --protocol https --sort rate --save /etc/pacman.d/mirrorlist; do
+clear
 read -rp "Specify country for mirror servers on the installation medium: " country
 done
 clear
