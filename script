@@ -8,7 +8,7 @@ pacman -S vim base-devel reflector networkmanager git xdg-utils xdg-user-dirs ba
 systemctl enable NetworkManager
 clear
 read -rp "Specify country for mirror servers in the system: " country
-while ! reflector --country "$country" --save /etc/pacman.d/mirrorlist; do
+while ! reflector --verbose --country "$country" --protocol https --sort rate --save /etc/pacman.d/mirrorlist; do
 read -rp "Specify country for mirror servers in the system: " country
 done
 pacman -Syy
