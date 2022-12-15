@@ -44,12 +44,14 @@ do
     case $opt in
         "UEFI")
     pacman -S grub efibootmgr efivar --noconfirm --needed
+    clear
     read -rp "Specify the location of your EFI partition (e.g. /dev/sda1): " efipart
     read -rp "Specify the mount-point of your EFI partition (e.g. /boot/efi, /efi, /boot): " efidir
     umount "$efipart"
     mkdir -p "$efidir"
     mount "$efipart" "$efidir"
     while ! grub-install --target=x86_64-efi --efi-directory="$efidir" --bootloader-id=archlinux; do
+    clear
     read -rp "Specify EFI partition path (e.g. /dev/sda1): " efipart
     read -rp "Specify EFI partition mount-point (e.g. /boot/efi, /efi, /boot): " efidir
     done
@@ -59,8 +61,10 @@ do
     ;;
         "BIOS")
     pacman -S grub --noconfirm --needed
+    clear
     read -rp "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
     while ! grub-install --target=i386-pc "$grubdir"; do
+    clear
     read -rp "Specify the path of the disk on which grub is to be installed (e.g. /dev/sda): " grubdir
     done
     sed -i '/GRUB_DISABLE_OS_PROBER=false/s/^#//g' /etc/default/grub
