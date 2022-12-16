@@ -7,7 +7,7 @@ ALBI aims to automate the Arch Linux installation process.
 ### Installing
 
 ```
-pacman -Syy git
+pacman -Sy git
 git clone https://github.com/barteqcz/albi
 cd albi/
 bash install
