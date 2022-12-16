@@ -44,4 +44,9 @@ In case you're dualbooting Arch with, for example, Windows, after the installati
 ```
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
-to let `GRUB` recreate the config file and automatically detect, for example, the Windows OS
+to let `GRUB` recreate the config file and automatically detect, for example, the Windows OS.
+
+<b> Setting the system regional setting </b>
+
+To enable specific locales settings, you have to edit `/etc/locale.gen` and uncomment desired ones.
+To edit the file you can use `vim`, `nano`, or some graphical ones, but remember to run it as superuser, to edit that file.
