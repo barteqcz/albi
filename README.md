@@ -49,7 +49,7 @@ to let `GRUB` recreate the config file and automatically detect, for example, th
 <b> Setting the system regional setting </b>
 
 To enable specific locales settings, you have to edit `/etc/locale.gen` and uncomment desired ones.
-By default, I uncommented `en_US.UTF-8` - English (American)
+By default, I uncommented `en_US.UTF-8` - English (American).
 To edit the file you can use `vim`, `nano`, or some graphical ones, but remember to run it as superuser, to edit that file.
 If you already did that, run
 ```
