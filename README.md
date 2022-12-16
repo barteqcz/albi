@@ -50,7 +50,7 @@ to let `GRUB` recreate the config file and automatically detect, for example, th
 
 To enable specific locales settings, you have to edit `/etc/locale.gen` and uncomment desired ones. <br>
 To edit the file you can use `vim`, `nano`, or some graphical editors, but remember to run it as superuser, to edit that file. <br>
-If you already did that, run
+If you already uncommented your desired locales, run
 ```
 sudo locale-gen
 ```
