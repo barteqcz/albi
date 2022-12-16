@@ -36,3 +36,12 @@ pacman-key --init
 pacman-key --populate
 pacman -Syy archlinux-keyring git
 ```
+### Post-install
+
+<b> Dualbooting </b>
+
+In case you're dualbooting Arch with, for example, Windows, after the installation, you'll have to run
+```
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
+to let `GRUB` recreate the config file and automatically detect, for example, the Windows OS
