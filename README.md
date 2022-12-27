@@ -4,14 +4,6 @@
 
 ALBI aims to automate the Arch Linux installation process.
 
-### Installing
-
-```
-pacman -Sy git
-git clone https://github.com/barteqcz/albi
-cd albi/
-bash install
-```
 ### Usage and preparation
 
 Before running the script, it is necessary to manually, arbitrarily, but correctly partition the disk, and connect the device to the internet (**when it comes to wifi connection**). 
@@ -36,6 +28,15 @@ pacman-key --init
 pacman-key --populate
 pacman -Sy archlinux-keyring git
 ```
+### Installing
+
+```
+pacman -Sy git
+git clone https://github.com/barteqcz/albi
+cd albi/
+bash install
+```
+
 ### Post-install
 
 <b> Dualbooting </b>
