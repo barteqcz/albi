@@ -43,7 +43,7 @@ bash install
 
 In case you're dualbooting Arch with, for example, Windows, after the installation, you'll have to run
 ```
-sudo grub-mkconfig -o /boot/grub/grub.cfg
+# grub-mkconfig -o /boot/grub/grub.cfg
 ```
 to let `GRUB` recreate the config file and automatically detect, for example, the Windows OS.
 
@@ -53,5 +53,5 @@ To enable specific locales settings, you have to edit `/etc/locale.gen` and unco
 To edit the file you can use `vim`, `nano`, or some graphical editors, but remember to run it as superuser, to edit that file. <br>
 If you already uncommented your desired locales, run
 ```
-sudo locale-gen
+# locale-gen
 ```
