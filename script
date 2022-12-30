@@ -224,12 +224,5 @@ esac
 done
 clear
 
-while true
-do
-    read -rp "Arch was installed successfully. Do you want to exit chroot? [y/n] " yn
-    case $yn in
-        [Yy]* ) rm script && exit;;
-        [Nn]* ) arch-chroot /mnt;;
-        * ) echo "Invalid option";;
-    esac
-    done
+echo "Now, you can do arch-chroot /mnt again, and uncomment desired locales in /etc/locale.gen"
+rm script && exit
