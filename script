@@ -38,8 +38,8 @@ echo "$hostname" > /etc/hostname
 mkinitcpio -P
 clear
 
-PS3="UEFI/BIOS?: "
-options=("UEFI" "BIOS")
+PS3="GRUB installation: "
+options=("UEFI" "BIOS" "I have grub installed already (for example when dualbooting with another linux distro)")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -70,6 +70,9 @@ do
     done
     sed -i '/GRUB_DISABLE_OS_PROBER=false/s/^#//g' /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg
+    break
+    ;;
+        "I have grub installed already (for example when dualbooting with another linux distro)"
     break
     ;;
         *)
