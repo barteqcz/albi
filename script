@@ -72,7 +72,7 @@ do
     grub-mkconfig -o /boot/grub/grub.cfg
     break
     ;;
-        "I have grub installed already (for example when dualbooting with another linux distro)"
+        "I have grub installed already (for example when dualbooting with another linux distro)")
     break
     ;;
         *)
